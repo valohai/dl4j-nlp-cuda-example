@@ -21,7 +21,7 @@
       image: neomatrix369/dl4j-nlp-cuda:v0.5
       inputs:
         - name: cpu-linux-uberjar
-          default: datum://016dfe8d-b0ff-ceb0-b6f2-dbfa44d48002
+          default: datum://
           description: dl4j nlp cpu linux uberjar
         - name: imdb-reviews
           default: http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
@@ -43,7 +43,7 @@
     image: neomatrix369/dl4j-nlp-cuda:v0.5
     inputs:
     - name: gpu-linux-uberjar
-      default: datum://016dfe8d-8eec-1b19-715b-71ce469d9ada
+      default: datum://
       description: dl4j nlp gpu linux uberjar
     - name: imdb-reviews
       default: http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
