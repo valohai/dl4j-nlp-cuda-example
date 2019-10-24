@@ -20,4 +20,6 @@ src/main/resources/NewsData
 src/main/resources/paravec
 *.deb
 *.gz
-data
+data/*
+*.pb
+pathToSaveModel.txt

@@ -93,13 +93,13 @@ public class Word2VecUptrainingExample {
         /*
             at this moment we're supposed to have model built, and it can be saved for future use.
          */
-        WordVectorSerializer.writeWord2VecModel(vec, "pathToSaveModel.txt");
+        WordVectorSerializer.writeWord2VecModel(vec, "word2VecUptrainingModel.pb");
 
         /*
             Let's assume that some time passed, and now we have new corpus to be used to weights update.
             Instead of building new model over joint corpus, we can use weights update mode.
          */
-        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel("pathToSaveModel.txt");
+        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel("word2VecUptrainingModel.pb");
 
         /*
             PLEASE NOTE: after model is restored, it's still required to set SentenceIterator and TokenizerFactory, if you're going to train this model

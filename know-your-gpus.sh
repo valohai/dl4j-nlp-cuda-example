@@ -32,14 +32,14 @@ ${SUDO_CMD} lshw -c video | grep configuration || true
 echo "~~~~~~~~~~~~~~~~~~~" >&2
 
 echo ""; echo "~~~~~ Check using lspci" >&2
-${SUDO_CMD} lspci  -v -s  $(lspci | grep ' VGA ' | cut -d" " -f 1) >&2 || true
+${SUDO_CMD} lspci  -v -s  "$(lspci | grep ' VGA ' | cut -d" " -f 1)" >&2 || true
 ${SUDO_CMD} lspci -vnn | grep VGA -A 12 >&2 || true
 echo "~~~~~~~~~~~~~~~~~~~" >&2
 ${SUDO_CMD} lspci | grep -i nvidia >&2 || true
 echo "~~~~~~~~~~~~~~~~~~~" >&2
 
 echo ""; echo "~~~~~ Check using nvidia-smi (should be part of the container runtime)" >&2
-which nvidia-smi || true
+which -v nvidia-smi || true
 whereis nvidia-smi || true
 nvidia-smi -q || true
 echo "~~~~~~~~~~~~~~~~~~~" >&2

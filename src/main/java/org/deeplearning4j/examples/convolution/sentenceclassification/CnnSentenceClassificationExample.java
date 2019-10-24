@@ -58,10 +58,8 @@ import java.util.*;
  */
 public class CnnSentenceClassificationExample {
 
-    /** Data URL for downloading */
-    public static final String DATA_URL = "http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz";
     /** Location to save and extract the training/testing data */
-    public static final String DATA_PATH = FilenameUtils.concat(System.getProperty("java.io.tmpdir"), "dl4j_w2vSentiment/");
+    public static final String DATA_PATH = String.format("%s/data/dl4j_w2vSentiment/", System.getProperty("user.dir"));
     /** Location (local file system) for the Google News vectors. Set this manually. */
     public static final String WORD_VECTORS_PATH = String.format("%s/data/GoogleNews-vectors-negative300.bin.gz", System.getProperty("user.dir"));
 
@@ -146,6 +144,8 @@ public class CnnSentenceClassificationExample {
         net.setListeners(new ScoreIterationListener(100), new EvaluativeListener(testIter, 1, InvocationType.EPOCH_END));
         net.fit(trainIter, nEpochs);
 
+        System.out.println("Saving model");
+        net.save(new File("CnnSentenceClassificationModel.pb"));
 
 
         //After training: load a single sentence and generate a prediction

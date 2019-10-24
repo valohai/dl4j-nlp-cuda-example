@@ -4,19 +4,24 @@
 
 ---
 
-Open built-in Terminal from the Android Studio or IntelliJ IDEA. 
+Open built-in Terminal from the IntelliJ IDEA. 
 If you prefer, use the terminal app on your computer.
 In the terminal window, `cd` to the project root directory `dl4j-nlp-cuda-example` if not already in.
 (_you can use IDE's run-configuration green run button, if you like._)
 
 ### Build app
 
+#### CPU version
+
 ```
-mvn package -Djavacpp.platform=linux-x86_64
-or
-mvn package -Djavacpp.platform=macos-x86_64
-or
-mvn package -Djavacpp.platform=windows-x86_64
+$ ./buildUberJar.sh
+```
+#### GPU version
+
+Please ensure your environment has access to an Nvidia GPU and the necessary drivers i.e. CUDA, etc...
+
+```
+$ BACKEND=gpu ./buildUberJar.sh
 ```
 
 ### Build app for the docker image
@@ -37,14 +42,18 @@ mvn package -Djavacpp.platform=windows-x86_64
 
 ### Run app local
 
-```
-./runUberJar.sh
-```
-
-followed by
+#### CPU version
 
 ```
-./runUberJar.sh
+$ BACKEND=cpu ./runUberJar.sh
+```
+
+#### GPU version
+
+Please ensure your environment has access to an Nvidia GPU and the necessary drivers i.e. CUDA, etc...
+
+```
+$ BACKEND=gpu ./runUberJar.sh
 ```
 
 Model file created and seeked for in the respective cases, is called `dl4j-nlp-cuda.pb`.

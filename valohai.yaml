@@ -1,20 +1,18 @@
 ---
 
 - step:
-    name: build-uberjar
-    image: neomatrix369/dl4j-nlp-cuda:v0.1
+    name: build-cpu-gpu-uberjar
+    image: neomatrix369/dl4j-nlp-cuda:v0.5
     inputs:
       - name: src-main-resources
         default: https://github.com/neomatrix369/awesome-ai-ml-dl/releases/download/dl4j-nlp-src-main-resources-v0.1/dl4j-nlp-src-main-resources.tgz
         description: NLP data for training, prediction, evaluation
     command:
-      - cd ${VH_REPOSITORY_DIR}
-      - cp ${VH_INPUTS_DIR}/src-main-resources/dl4j-nlp-src-main-resources.tgz ${VH_REPOSITORY_DIR}
-      - tar xzvf dl4j-nlp-src-main-resources.tgz
-      - ls ${VH_REPOSITORY_DIR}/src/main/resources
       - ./buildUberJar.sh
       - echo "~~~ Copying the build jar file into ${VH_OUTPUTS_DIR}"
       - cp target/*bin*.jar ${VH_OUTPUTS_DIR}
+      - echo "~~~ Copying the *know-your-gpus*.log file into ${VH_OUTPUTS_DIR}"
+      - cp *know-your-gpus*.log ${VH_OUTPUTS_DIR}
       - ls -lash ${VH_OUTPUTS_DIR}
     environment: aws-eu-west-1-g2-2xlarge
 
@@ -25,18 +23,19 @@
         - name: cpu-linux-uberjar
           default: datum://016df3e4-6af8-491d-f508-0d9017db252e
           description: dl4j nlp cpu linux uberjar
-        - name: google-word-vector
+        - name: imdb-reviews
+          default: http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
+          description: IMDB Review dataset for sentiment analysis
+        - name: google-word2vec
           default: https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz
-          description: GoogleNews word-vector data file
+          description: word2vec pre-trained Google News corpus
       command:
-        - ls -lash ${VH_INPUTS_DIR}
         - cd ${VH_REPOSITORY_DIR}
+        - echo "~~~ Copying ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-cpu-linux-bin.jar into ${VH_REPOSITORY_DIR}"
         - cp ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-cpu-linux-bin.jar ${VH_REPOSITORY_DIR}
-        - mkdir -p ${VH_REPOSITORY_DIR}/data
-        - cp ${VH_INPUTS_DIR}/google-word-vector/GoogleNews-vectors-negative300.bin.gz ${VH_REPOSITORY_DIR}/data
-        - ls -lash
-        - ls -lash data
         - time BACKEND=cpu ./runUberJar.sh
+        - echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
+        - cp *.pb ${VH_OUTPUTS_DIR}
       environment: aws-eu-west-1-g3-4xlarge
 
 - step:
@@ -46,18 +45,21 @@
     - name: gpu-linux-uberjar
       default: datum://016df3e4-4d58-93dc-b15e-5355fd911b82
       description: dl4j nlp gpu linux uberjar
-    - name: google-word-vector
+    - name: imdb-reviews
+      default: http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
+      description: IMDB Review dataset for sentiment analysis
+    - name: google-word2vec
       default: https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz
-      description: GoogleNews word-vector data file
+      description: word2vec pre-trained Google News corpus
     command:
-    - ls -lash ${VH_INPUTS_DIR}
     - cd ${VH_REPOSITORY_DIR}
+    - echo "~~~ Copying ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-gpu-linux-bin.jar into ${VH_REPOSITORY_DIR}"
     - cp ${VH_INPUTS_DIR}/gpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-gpu-linux-bin.jar ${VH_REPOSITORY_DIR}
-    - mkdir -p ${VH_REPOSITORY_DIR}/data
-    - cp ${VH_INPUTS_DIR}/google-word-vector/GoogleNews-vectors-negative300.bin.gz ${VH_REPOSITORY_DIR}/data
-    - ls -lash
-    - ls -lash data
     - time BACKEND=gpu ./runUberJar.sh
+    - echo "~~~ Copying the *know-your-gpus*.log file into ${VH_OUTPUTS_DIR}"
+    - cp *know-your-gpus*.log ${VH_OUTPUTS_DIR}
+    - echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
+    - cp *.pb ${VH_OUTPUTS_DIR}
     environment: aws-eu-west-1-g3-4xlarge
 
 ###
