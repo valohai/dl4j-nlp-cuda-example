@@ -42,10 +42,10 @@ if [[ -z "${VH_INPUTS_DIR:-}" ]]; then
 else
    ### In the Valohai environment
    echo "";
-   echo "Downloading word2vec pre-trained Google News corpus into the data folder" >&2
+   echo "Copying word2vec pre-trained Google News corpus into the data folder" >&2
    cp "${VH_INPUTS_DIR}/google-word2vec/GoogleNews-vectors-negative300.bin.gz" "${VH_REPOSITORY_DIR}/data"
-   echo "Downloading IMDB Review dataset for sentiment analysis into the data/dl4j_w2vSentiment folder" >&2
-   cp "${VH_INPUTS_DIR}/imdb-reviews/http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz" "${VH_REPOSITORY_DIR}/data/dl4j_w2vSentiment"
+   echo "Copying IMDB Review dataset for sentiment analysis into the data/dl4j_w2vSentiment folder" >&2
+   cp "${VH_INPUTS_DIR}/imdb-reviews/aclImdb_v1.tar.gz" "${VH_REPOSITORY_DIR}/data/dl4j_w2vSentiment"
 fi
 
 BACKEND=${BACKEND:-gpu}

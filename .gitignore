@@ -6,6 +6,7 @@ build
 target
 local.properties
 logs/
+*.log*
 out
 *.jar
 .deeplearning4j/
