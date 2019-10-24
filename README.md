@@ -34,23 +34,29 @@ After install the [Valohai CLI](https://docs.valohai.com/valohai-cli/index.html?
 
 - create a new Valohai project (requires an account on https://valohai.com)
 ```bash
-$ vh create
+$ vh project create
 ```  
 ```bash
   (Resolved create to project create.)
   Project name: dl4j-nlp-cuda-example
   😄  Success! Project dl4j-nlp-cuda-example created.
 ```
-You can go back to your account on [https://valohai.com]() to find this project present
+
+- Go back to your account on [https://valohai.com]() to find this project present:
+
+```bash
+$ vh project open
+```
+
+Once in your Valohai project, add this git repo (https://github.com/neomatrix369/dl4j-nlp-cuda-example) to the project, under the **Repository** tab page.
 
 - viewing Valohai cloud environments (optional)
-```
+```bash
 $ vh env 
 ```
 
 - shortlisting GPU based environments (optional)
-
-```bash 
+```bash
 $ vh env -price --queue --gpu
 ```
 List all environments that support GPUs with their price tag and their queue status. 
@@ -61,20 +67,19 @@ $ vh exec list
 $ vh exec run --help
 ```    
 
-
 ### Build the app (remote machine on the cloud)
 
-We mean using the Valohai CLI to run executions on the Valohai platform.
+We mean using the [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) to run executions on the [Valohai](https://valohai.org) platform.
 
 #### CPU & GPU version
 
 ```bash
-$ vh exec run build-cpu-gpu-uberjar [--adhoc] ### --adhoc if you have unsaved commits
-                                              ### and want to experiment before being                                              
-                                              ### sure of the configuration
+$ vh exec run build-cpu-gpu-uberjar [--adhoc]
 
 ### Run `vh exec run --help` to find out more about this command
 ```
+
+Note: use `--adhoc` only if you have not setup your Valohai project with a git repo or have unsaved commits and want to experiment before being sure of the configuration.
 
 Creates and uploads the artifacts into the Valohai storage which can be referred to later on.
     
@@ -82,7 +87,7 @@ Creates and uploads the artifacts into the Valohai storage which can be referred
 
 #### CPU version
 
-```
+```bash
 $ BACKEND=cpu ./buildUberJar.sh
 ```
 
@@ -90,7 +95,7 @@ $ BACKEND=cpu ./buildUberJar.sh
 
 Please ensure your environment has access to an Nvidia GPU and the necessary drivers i.e. CUDA, etc...
 
-```
+```bash
 $ BACKEND=gpu ./buildUberJar.sh
 ```
 
@@ -134,7 +139,7 @@ Although if you look at the [valohai.yaml]() file, it's already done on the Valo
 
 #### CPU version
 
-```
+```bash
 $ BACKEND=cpu ./runUberJar.sh
 ```
 
@@ -142,7 +147,7 @@ $ BACKEND=cpu ./runUberJar.sh
 
 Please ensure your environment has access to an Nvidia GPU and the necessary drivers i.e. CUDA, etc...
 
-```
+```bash
 $ BACKEND=gpu ./runUberJar.sh
 ```
 
@@ -150,7 +155,7 @@ Model file created and seeked for in the respective cases, is called `dl4j-nlp-c
 
 ### Run app in docker container
 
-```
+```bash
 ./runDockerContainer.sh
 ```
 
