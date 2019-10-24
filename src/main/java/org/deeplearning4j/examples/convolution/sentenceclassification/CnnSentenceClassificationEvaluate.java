@@ -55,14 +55,14 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
 
     public void run(
             int batchSize,
-            int truncateReviewsToLength,  //Truncate reviews with length (# words) greater than this
-            Random rng                    //For shuffling repeatability
+            int truncateReviewsToLength,   //Truncate reviews with length (# words) greater than this
+            int randomSeedForRepeatability //For shuffling repeatability
     ) throws Exception {
         log.info("Loading pretrained model");
 
         log.info(String.format("batchSize = %d", batchSize));
         log.info(String.format("truncateReviewsToLength = %d", truncateReviewsToLength));
-        log.info(String.format("rng = %d", rng));
+        log.info(String.format("randomSeedForRepeatability = %d", randomSeedForRepeatability));
 
         ComputationGraph model = ComputationGraph.load(new File(modelFilePath), true);
 
@@ -74,7 +74,13 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
         //Load word vectors and get the DataSetIterators for testing
         log.info("Loading word vectors and creating DataSetIterators (this may take a moment: ~1 to 2 minutes)");
         WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
-        DataSetIterator testIter = getDataSetIterator(TESTING, wordVectors, batchSize, truncateReviewsToLength, rng);
+        DataSetIterator testIter = getDataSetIterator(
+                TESTING,
+                wordVectors,
+                batchSize,
+                truncateReviewsToLength,
+                new Random(randomSeedForRepeatability)
+        );
 
         log.info(String.format("\n\nEvaluating the model (please be patient this may take a moment): %s", modelFilePath));
         model.setListeners(

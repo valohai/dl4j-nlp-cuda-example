@@ -72,7 +72,6 @@ public class CnnSentenceClassificationRunner {
 
         Nd4j.getMemoryManager().setAutoGcWindow(5000);
 
-        Random randomSeedForRepeatability = new Random(12345);
         if (action.equalsIgnoreCase("train")) {
             CnnSentenceClassificationTrain training = new CnnSentenceClassificationTrain(outputModelDir);
             training.run(32,
@@ -81,14 +80,14 @@ public class CnnSentenceClassificationRunner {
                     256,
                     100,
                     PoolingType.MAX,
-                    randomSeedForRepeatability,
+                    12345,
                     0.0001);
         } else if (action.equalsIgnoreCase("evaluate")) {
             CnnSentenceClassificationEvaluate evaluate = new CnnSentenceClassificationEvaluate(inputModelFilePath);
             evaluate.run(
                     32,
                     256,    //Truncate reviews with length (# words) greater than this
-                    randomSeedForRepeatability   //For shuffling repeatability
+                    12345                   //For shuffling repeatability
             );
         }
     }

@@ -68,7 +68,7 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
             int truncateReviewsToLength, //Truncate reviews with length (# words) greater than this
             int cnnLayerFeatureMaps,     //Number of feature maps / channels / depth for each CNN layer
             PoolingType globalPoolingType,
-            Random rng,                   //For shuffling repeatability
+            int randomSeedForRepeatability,                   //For shuffling repeatability
             double learningRate
     ) throws Exception {
         //Set up the network configuration. Note that we have multiple convolution layers, each wih filter
@@ -77,7 +77,7 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         log.info(String.format("vectorSize = %d", vectorSize));
         log.info(String.format("truncateReviewsToLength = %d", truncateReviewsToLength));
         log.info(String.format("cnnLayerFeatureMaps = %d", cnnLayerFeatureMaps));
-        log.info(String.format("rng = %d", rng));
+        log.info(String.format("randomSeedForRepeatability = %d", randomSeedForRepeatability));
         log.info(String.format("globalPoolingType = %d", PoolingType.valueOf(globalPoolingType.name())));
         log.info(String.format("learningRate = %d", learningRate));
 
@@ -133,7 +133,13 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         //Load word vectors and get the DataSetIterators for training and testing
         log.info("Loading word vectors and creating DataSetIterators (this may take a moment: ~1 to 2 minutes)");
         WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
-        DataSetIterator trainIter = getDataSetIterator(TRAINING, wordVectors, batchSize, truncateReviewsToLength, rng);
+        DataSetIterator trainIter = getDataSetIterator(
+                TRAINING,
+                wordVectors,
+                batchSize,
+                truncateReviewsToLength,
+                new Random(randomSeedForRepeatability)
+        );
 
         log.info("Starting training");
         model.setListeners(
