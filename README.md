@@ -161,6 +161,26 @@ Model file created and seeked for in the respective cases, is called `dl4j-nlp-c
 
 At the prompt in the container, do the same as mentioned in section [Run app local](#run-app-local).
 
+## Other examples
+
+We will only be covering the `CnnSentenceClassificationExample` with the above steps, but additional examples are available with this repo:
+ 
+- [nlp](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/nlp) 
+- [convolution: sentence classifier](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/sentenceclassification) 
+- [recurrent: character](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/character) 
+- [recurrent: process news](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/processnews) 
+- [recurrent: word2vec and sentiment analysis](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/word2vecsentiment) 
+
+You can get the others to work by:
+
+- cloning this repo
+- running the `./download-src-main-resources.sh` in the root of the project folder
+- opening the project in your favourite IDE
+- make sure you *Marked the directory* `dl4j-nlp-cuda-example/src/main/java` as *Sources Root* 
+- for e.g. in IntelliJ we can run an class by selecting it's name via mouse of keyboard
+
+And you can find more examples (non-NLP related) at https://github.com/deeplearning4j/dl4j-examples.
+
 ## Credits
 
 This example has been inspired by the DL4J NLP examples: [nlp](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/nlp) | [convolution: sentence classifier](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/sentenceclassification) | [recurrent: character](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/character) | [recurrent: process news](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/processnews) | [recurrent: word2vec and sentiment analysis](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/word2vecsentiment )examples from DL4J. Credits to the original authors of this example on https://github.com/deeplearning4j/dl4j-examples, 
