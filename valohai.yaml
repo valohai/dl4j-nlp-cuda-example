@@ -31,11 +31,12 @@
         description: word2vec pre-trained Google News corpus
     command:
       - cd ${VH_REPOSITORY_DIR}
-      - echo "~~~ Copying ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-cpu-linux-bin.jar into ${VH_REPOSITORY_DIR}"
-      - cp ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-cpu-linux-bin.jar ${VH_REPOSITORY_DIR}
-      - time BACKEND=cpu ./runUberJar.sh
+      - BACKEND=cpu
+      - echo "~~~ Copying ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar into ${VH_REPOSITORY_DIR}"
+      - cp ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar ${VH_REPOSITORY_DIR}
+      - time ./runUberJar.sh
       - echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
-      - for filename in *.pb ; do mv $filename "${filename%.*}"-cpu.pb ; done
+      - commitHash=$(git rev-parse --short HEAD); for filename in *.pb ; do mv $filename "${filename%.*}-${BACKEND}-${commitHash}.pb" ; done
       - cp *.pb ${VH_OUTPUTS_DIR}
     environment: aws-eu-west-1-g3-4xlarge
 
@@ -54,13 +55,12 @@
       description: word2vec pre-trained Google News corpus
     command:
     - cd ${VH_REPOSITORY_DIR}
-    - echo "~~~ Copying ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-gpu-linux-bin.jar into ${VH_REPOSITORY_DIR}"
-    - cp ${VH_INPUTS_DIR}/gpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-gpu-linux-bin.jar ${VH_REPOSITORY_DIR}
-    - time BACKEND=gpu ./runUberJar.sh
-    - echo "~~~ Copying the *know-your-gpus*.logs file into ${VH_OUTPUTS_DIR}"
-    - cp *know-your-gpus*.logs ${VH_OUTPUTS_DIR}
+    - BACKEND=gpu
+    - echo "~~~ Copying ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar into ${VH_REPOSITORY_DIR}"
+    - cp ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar ${VH_REPOSITORY_DIR}
+    - time ./runUberJar.sh
     - echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
-    - for filename in *.pb ; do mv $filename "${filename%.*}"-cpu.pb ; done
+    - commitHash=$(git rev-parse --short HEAD); for filename in *.pb ; do mv $filename "${filename%.*}-${BACKEND}-${commitHash}.pb" ; done
     - cp *.pb ${VH_OUTPUTS_DIR}
     environment: aws-eu-west-1-g3-4xlarge
 
@@ -83,5 +83,6 @@
     image: neomatrix369/dl4j-nlp-cuda:v0.5
     command:
       - cd ${VH_REPOSITORY_DIR}
-      - ./know-your-gpus.sh
+      - ./know-your-gpus.sh &> "${VH_OUTPUTS_DIR}/know-your-gpus.logs"
+      - cat "${VH_OUTPUTS_DIR}/know-your-gpus.logs"
     environment: aws-eu-west-1-g3-4xlarge
