@@ -161,7 +161,7 @@ Model file created and seeked for in the respective cases, is called `dl4j-nlp-c
 
 At the prompt in the container, do the same as mentioned in section [Run app local](#run-app-local).
 
-## Other examples
+## Running other examples on the local machine
 
 We will only be covering the `CnnSentenceClassificationExample` with the above steps, but additional examples are available with this repo:
  
@@ -174,7 +174,8 @@ We will only be covering the `CnnSentenceClassificationExample` with the above s
 You can get the others to work by:
 
 - cloning this repo
-- running the `./download-src-main-resources.sh` in the root of the project folder
+- running the `./download-src-main-resources.sh` shell script in the root of the project folder
+- running the `./download-model-and-review-database.sh` shell script in the root of the project folder
 - opening the project in your favourite IDE
 - make sure you *Marked the directory* `dl4j-nlp-cuda-example/src/main/java` as *Sources Root* 
 - for e.g. in IntelliJ we can run an class by selecting it's name via mouse of keyboard
