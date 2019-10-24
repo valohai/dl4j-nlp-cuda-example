@@ -17,7 +17,7 @@ To be able to run the apps and tasks we will cover in this project we would need
 - Python 3.7 or higher
 - GraalVM CE 19.2.1 or higher (download from [https://github.com/oracle/graal/releases]())
 - Maven 3.6.0 or higher
-- Nvidia and CUDA drivers version (Linux and Windows machines only, support for MacOS is unavailable) (see [Resources](#resoures) at the bottom of this post for download and installation details)
+- Nvidia, CUDA 10.1 and cuDNN (7.0) drivers version (Linux and Windows machines only, support for MacOS is unavailable) (see [Resources](#resoures) at the bottom of this post for download and installation details)
 - [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) - it’s easy to install and get started with the CLI tool, see [Command-line Usage](https://docs.valohai.com/valohai-cli/index.html?highlight=cli).
 - Ensure you have opened an account on [https://valohai.com](), see [https://app.valohai.com/accounts/signup/]() 
 
@@ -59,8 +59,8 @@ List all environments that support GPUs with their price tag and their queue sta
 $ vh lint
 $ vh exec list
 $ vh exec run --help
-```
-
+```    
+    
 ### Build app
 
 #### CPU version
@@ -76,21 +76,42 @@ Please ensure your environment has access to an Nvidia GPU and the necessary dri
 $ BACKEND=gpu ./buildUberJar.sh
 ```
 
-### Build app for the docker image
 
+### Building the docker container to run CUDA-enabled Java apps
+
+**For the sake of this project you won't need to do any of the below steps in this section, as we already have a [pre-baked CUDA-enabled docker image](https://hub.docker.com/r/neomatrix369/dl4j-nlp-cuda/tags) for your use.** The docker image contains everything mentioned in the pre-requites in the [Install and Setup](#install-and-setup) section.
 
 #### Build docker image
 
-```
-./buildUberJar.sh
-./buildDockerImage.sh
+Builds a CUDA-enabled docker image based on [Nvidia's CUDA docker image: nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04](https://hub.docker.com/r/nvidia/cuda/tags) and a [GraalVM 19.2.1](https://hub.docker.com/r/findepi/graalvm/tags) image from [findepi](https://hub.docker.com/r/findepi/) 
+
+```bash
+$ cd dl4j-nlp-cuda-example/docker
+$ ./buildDockerImage.sh
 ```
 
 #### Push to docker hub
 
+Push the created image to the Docker hub, you need an account on [Docker Hub](https://hub.docker.com/).
+
+```bash
+$ cd dl4j-nlp-cuda-example/docker
+$ ./push-docker-image-to-hub.sh
 ```
-./push-docker-image-to-hub.sh
+
+You will be prompted for a password to your account when you try to push this to the hub, unless you are already logged in.
+
+#### Run the docker container
+
+In this specific case, running the container would make more sense if you have a machine with a GPU and Nvidia drivers installed and working.
+See [Resources](#resources) to find out how to go about with that.
+
+```bash
+$ cd dl4j-nlp-cuda-example/docker
+$ ./runDockerContainer.sh
 ```
+
+Although if you look at the [valohai.yaml]() file, it's already done on the Valohai platform. 
 
 ### Run app local
 
