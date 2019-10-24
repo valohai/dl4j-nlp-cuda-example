@@ -17,26 +17,27 @@
     environment: aws-eu-west-1-g2-2xlarge
 
 - step:
-      name: run-uberjar-cpu-linux
-      image: neomatrix369/dl4j-nlp-cuda:v0.5
-      inputs:
-        - name: cpu-linux-uberjar
-          default: datum://
-          description: dl4j nlp cpu linux uberjar
-        - name: imdb-reviews
-          default: http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
-          description: IMDB Review dataset for sentiment analysis
-        - name: google-word2vec
-          default: https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz
-          description: word2vec pre-trained Google News corpus
-      command:
-        - cd ${VH_REPOSITORY_DIR}
-        - echo "~~~ Copying ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-cpu-linux-bin.jar into ${VH_REPOSITORY_DIR}"
-        - cp ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-cpu-linux-bin.jar ${VH_REPOSITORY_DIR}
-        - time BACKEND=cpu ./runUberJar.sh
-        - echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
-        - cp *.pb ${VH_OUTPUTS_DIR}
-      environment: aws-eu-west-1-g3-4xlarge
+    name: run-uberjar-cpu-linux
+    image: neomatrix369/dl4j-nlp-cuda:v0.5
+    inputs:
+      - name: cpu-linux-uberjar
+        default: datum://
+        description: dl4j nlp cpu linux uberjar
+      - name: imdb-reviews
+        default: http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
+        description: IMDB Review dataset for sentiment analysis
+      - name: google-word2vec
+        default: https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz
+        description: word2vec pre-trained Google News corpus
+    command:
+      - cd ${VH_REPOSITORY_DIR}
+      - echo "~~~ Copying ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-cpu-linux-bin.jar into ${VH_REPOSITORY_DIR}"
+      - cp ${VH_INPUTS_DIR}/cpu-linux-uberjar/dl4j-nlp-1.0.0-beta5-cpu-linux-bin.jar ${VH_REPOSITORY_DIR}
+      - time BACKEND=cpu ./runUberJar.sh
+      - echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
+      - for filename in *.pb ; do mv $filename "${filename%.*}"-cpu.pb ; done
+      - cp *.pb ${VH_OUTPUTS_DIR}
+    environment: aws-eu-west-1-g3-4xlarge
 
 - step:
     name: run-uberjar-gpu-linux
@@ -59,6 +60,7 @@
     - echo "~~~ Copying the *know-your-gpus*.logs file into ${VH_OUTPUTS_DIR}"
     - cp *know-your-gpus*.logs ${VH_OUTPUTS_DIR}
     - echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
+    - for filename in *.pb ; do mv $filename "${filename%.*}"-cpu.pb ; done
     - cp *.pb ${VH_OUTPUTS_DIR}
     environment: aws-eu-west-1-g3-4xlarge
 
