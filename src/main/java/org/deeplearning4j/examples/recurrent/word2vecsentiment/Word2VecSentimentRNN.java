@@ -18,6 +18,7 @@ package org.deeplearning4j.examples.recurrent.word2vecsentiment;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.deeplearning4j.examples.convolution.sentenceclassification.CnnSentenceClassificationTrain;
 import org.deeplearning4j.examples.utilities.DataUtilities;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
@@ -37,6 +38,8 @@ import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.indexing.NDArrayIndex;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -64,6 +67,8 @@ import java.io.File;
  * @author Alex Black
  */
 public class Word2VecSentimentRNN {
+
+    private static Logger log = LoggerFactory.getLogger(Word2VecSentimentRNN.class);
 
     /** Location to save and extract the training/testing data */
     public static final String DATA_PATH = String.format("%s/data/dl4j_w2vSentiment/", System.getProperty("user.dir"));
@@ -109,7 +114,7 @@ public class Word2VecSentimentRNN {
         SentimentExampleIterator train = new SentimentExampleIterator(DATA_PATH, wordVectors, batchSize, truncateReviewsToLength, true);
         SentimentExampleIterator test = new SentimentExampleIterator(DATA_PATH, wordVectors, batchSize, truncateReviewsToLength, false);
 
-        System.out.println("Starting training");
+        log.info("Starting training");
         net.setListeners(new ScoreIterationListener(1), new EvaluativeListener(test, 1, InvocationType.EPOCH_END));
         net.fit(train, nEpochs);
 
@@ -122,16 +127,22 @@ public class Word2VecSentimentRNN {
         long timeSeriesLength = networkOutput.size(2);
         INDArray probabilitiesAtLastWord = networkOutput.get(NDArrayIndex.point(0), NDArrayIndex.all(), NDArrayIndex.point(timeSeriesLength - 1));
 
-        System.out.println("\n\n-------------------------------");
-        System.out.println("Short negative review: \n" + shortNegativeReview);
-        System.out.println("\n\nProbabilities at last time step:");
-        System.out.println("p(positive): " + probabilitiesAtLastWord.getDouble(0));
-        System.out.println("p(negative): " + probabilitiesAtLastWord.getDouble(1));
+        log.info("\n\n-------------------------------");
+        log.info("Short negative review: \n" + shortNegativeReview);
+        log.info("\n\nProbabilities at last time step:");
+        log.info("p(positive): " + probabilitiesAtLastWord.getDouble(0));
+        log.info("p(negative): " + probabilitiesAtLastWord.getDouble(1));
 
-        System.out.println("----- Example complete -----");
+        log.info("----- Example complete -----");
     }
 
     public static void downloadData() throws Exception {
+        if (new File(WORD_VECTORS_PATH).exists()) {
+            log.info(String.format("%s already exists!", WORD_VECTORS_PATH));
+        } else {
+            throw new RuntimeException(String.format("Please download the model and place it at %s!", WORD_VECTORS_PATH));
+        }
+
         //Create directory if required
         File directory = new File(DATA_PATH);
         if(!directory.exists()) directory.mkdir();
@@ -143,17 +154,17 @@ public class Word2VecSentimentRNN {
         File extractedFile = new File(extractedPath);
 
         if( !archiveFile.exists() ){
-            System.out.println("Data (.tar.gz file) downloaded to " + archiveFile.getAbsolutePath());
+            log.info("Data (.tar.gz file) downloaded to " + archiveFile.getAbsolutePath());
             //Extract tar.gz file to output directory
             DataUtilities.extractTarGz(archizePath, DATA_PATH);
         } else {
             //Assume if archive (.tar.gz) exists, then data has already been extracted
-            System.out.println("Data (.tar.gz file) already exists at " + archiveFile.getAbsolutePath());
+            log.info("Data (.tar.gz file) already exists at " + archiveFile.getAbsolutePath());
             if( !extractedFile.exists()){
             	//Extract tar.gz file to output directory
             	DataUtilities.extractTarGz(archizePath, DATA_PATH);
             } else {
-            	System.out.println("Data (extracted) already exists at " + extractedFile.getAbsolutePath());
+                log.info("Data (extracted) already exists at " + extractedFile.getAbsolutePath());
             }
         }
     }

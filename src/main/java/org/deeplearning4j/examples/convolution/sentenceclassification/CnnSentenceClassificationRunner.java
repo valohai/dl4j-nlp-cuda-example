@@ -69,17 +69,26 @@ public class CnnSentenceClassificationRunner {
     private void execute() throws Exception {
         //Download and extract data
         Word2VecSentimentRNN.downloadData();
+
         Nd4j.getMemoryManager().setAutoGcWindow(5000);
 
+        Random randomSeedForRepeatability = new Random(12345);
         if (action.equalsIgnoreCase("train")) {
             CnnSentenceClassificationTrain training = new CnnSentenceClassificationTrain(outputModelDir);
-            training.run(32, 300, 1, 256, 100, PoolingType.MAX, new Random(12345));
+            training.run(32,
+                    300,
+                    1,
+                    256,
+                    100,
+                    PoolingType.MAX,
+                    randomSeedForRepeatability,
+                    0.0001);
         } else if (action.equalsIgnoreCase("evaluate")) {
             CnnSentenceClassificationEvaluate evaluate = new CnnSentenceClassificationEvaluate(inputModelFilePath);
             evaluate.run(
                     32,
-                    256, //Truncate reviews with length (# words) greater than this
-                    new Random(12345)   //For shuffling repeatability
+                    256,    //Truncate reviews with length (# words) greater than this
+                    randomSeedForRepeatability   //For shuffling repeatability
             );
         }
     }

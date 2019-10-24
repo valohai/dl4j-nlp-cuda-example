@@ -23,6 +23,9 @@ import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
 import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
+import org.deeplearning4j.optimize.api.InvocationType;
+import org.deeplearning4j.optimize.listeners.EvaluativeListener;
+import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.slf4j.Logger;
@@ -42,6 +45,8 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
 
     private static Logger log = LoggerFactory.getLogger(CnnSentenceClassificationEvaluate.class);
 
+    private static final boolean TESTING = false;
+
     private String modelFilePath;
 
     public CnnSentenceClassificationEvaluate(String modelFilePath) {
@@ -54,34 +59,45 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
             Random rng                    //For shuffling repeatability
     ) throws Exception {
         log.info("Loading pretrained model");
-        ComputationGraph net = ComputationGraph.load(new File(modelFilePath), true);
+
+        log.info(String.format("batchSize = %d", batchSize));
+        log.info(String.format("truncateReviewsToLength = %d", truncateReviewsToLength));
+        log.info(String.format("rng = %d", rng));
+
+        ComputationGraph model = ComputationGraph.load(new File(modelFilePath), true);
 
         log.info("Number of parameters by layer:");
-        for(Layer l : net.getLayers() ){
+        for(Layer l : model.getLayers() ){
             log.info(String.format("\t%s\t%d", l.conf().getLayer().getLayerName(), l.numParams()));
         }
 
         //Load word vectors and get the DataSetIterators for testing
-        log.info("Loading word vectors and creating DataSetIterators");
+        log.info("Loading word vectors and creating DataSetIterators (this may take a moment: ~1 to 2 minutes)");
         WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
-        DataSetIterator testIter = getDataSetIterator(false, wordVectors, batchSize, truncateReviewsToLength, rng);
+        DataSetIterator testIter = getDataSetIterator(TESTING, wordVectors, batchSize, truncateReviewsToLength, rng);
+
+        log.info(String.format("\n\nEvaluating the model (please be patient this may take a moment): %s", modelFilePath));
+        model.setListeners(
+                new ValohaiMetadataCreator(10),
+                new EvaluativeListener(testIter, 1, InvocationType.EPOCH_END)
+        );
+        Evaluation modelEvaluation = model.evaluate(testIter);
+
+        log.info("\n\nPrinting model evaluation stats:");
+        log.info(modelEvaluation.stats());
+        log.info("\n\nFinished evaluating model.");
 
         //After training: load a single sentence and generate a prediction
         String pathFirstNegativeFile = FilenameUtils.concat(DATA_PATH, "aclImdb/test/neg/0_2.txt");
         String contentsFirstNegative = FileUtils.readFileToString(new File(pathFirstNegativeFile));
         INDArray featuresFirstNegative = ((CnnSentenceDataSetIterator)testIter).loadSingleSentence(contentsFirstNegative);
 
-        INDArray predictionsFirstNegative = net.outputSingle(featuresFirstNegative);
+        INDArray predictionsFirstNegative = model.outputSingle(featuresFirstNegative);
         List<String> labels = testIter.getLabels();
 
         log.info("\n\nPredictions for first negative review:");
-        for( int i=0; i<labels.size(); i++ ){
-            log.info(String.format("P(%s) = %s", labels.get(i), predictionsFirstNegative.getDouble(i)));
+        for( int index=0; index<labels.size(); index++ ){
+            log.info(String.format("P(%s) = %s", labels.get(index), predictionsFirstNegative.getDouble(index)));
         }
-
-        log.info("\n\nEvaluating model:");
-        net.setListeners(new ValohaiMetadataCreator(10));
-        net.evaluate(testIter);
-        log.info("\n\nFinished evaluating model.");
     }
 }

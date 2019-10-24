@@ -51,7 +51,9 @@ import java.util.*;
  */
 public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRunner {
 
-    private static Logger log = LoggerFactory.getLogger(CnnSentenceClassificationEvaluate.class);
+    private static Logger log = LoggerFactory.getLogger(CnnSentenceClassificationTrain.class);
+
+    private static final boolean TRAINING = true;
 
     private String outputModelFolder;
 
@@ -66,10 +68,18 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
             int truncateReviewsToLength, //Truncate reviews with length (# words) greater than this
             int cnnLayerFeatureMaps,     //Number of feature maps / channels / depth for each CNN layer
             PoolingType globalPoolingType,
-            Random rng                   //For shuffling repeatability
+            Random rng,                   //For shuffling repeatability
+            double learningRate
     ) throws Exception {
         //Set up the network configuration. Note that we have multiple convolution layers, each wih filter
         //widths of 3, 4 and 5 as per Kim (2014) paper.
+        log.info(String.format("batchSize = %d", batchSize));
+        log.info(String.format("vectorSize = %d", vectorSize));
+        log.info(String.format("truncateReviewsToLength = %d", truncateReviewsToLength));
+        log.info(String.format("cnnLayerFeatureMaps = %d", cnnLayerFeatureMaps));
+        log.info(String.format("rng = %d", rng));
+        log.info(String.format("globalPoolingType = %d", PoolingType.valueOf(globalPoolingType.name())));
+        log.info(String.format("learningRate = %d", learningRate));
 
         log.info("Build model....");
         ComputationGraphConfiguration config = new NeuralNetConfiguration.Builder()
@@ -77,7 +87,7 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
             .activation(Activation.LEAKYRELU)
             .updater(new Adam(0.01))
             .convolutionMode(ConvolutionMode.Same)      //This is important so we can 'stack' the results later
-            .l2(0.0001)
+            .l2(learningRate)
             .graphBuilder()
             .addInputs("input")
             .addLayer("cnn3", new ConvolutionLayer.Builder()
@@ -112,34 +122,34 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
             .setInputTypes(InputType.convolutional(truncateReviewsToLength, vectorSize, 1))
             .build();
 
-        ComputationGraph net = new ComputationGraph(config);
-        net.init();
+        ComputationGraph model = new ComputationGraph(config);
+        model.init();
 
         log.info("Number of parameters by layer:");
-        for(Layer l : net.getLayers() ){
+        for(Layer l : model.getLayers() ){
             log.info(String.format("\t%s\t%d", l.conf().getLayer().getLayerName(), l.numParams()));
         }
 
         //Load word vectors and get the DataSetIterators for training and testing
-        System.out.println("Loading word vectors and creating DataSetIterators (this may take a moment)");
+        log.info("Loading word vectors and creating DataSetIterators (this may take a moment: ~1 to 2 minutes)");
         WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
-        DataSetIterator trainIter = getDataSetIterator(true, wordVectors, batchSize, truncateReviewsToLength, rng);
+        DataSetIterator trainIter = getDataSetIterator(TRAINING, wordVectors, batchSize, truncateReviewsToLength, rng);
 
-        System.out.println("Starting training");
-        net.setListeners(
+        log.info("Starting training");
+        model.setListeners(
                 new ValohaiMetadataCreator(10),
                 new CheckpointListener.Builder(outputModelFolder)
                         .deleteExisting(true)
                         .saveEveryEpoch()
                         .build()
         );
-        net.fit(trainIter, nEpochs);
+        model.fit(trainIter, nEpochs);
         log.info("Finished training");
 
         log.info("Saving model");
         String modelName = "CnnSentenceClassificationModel.pb";
         File modelFilePath = Paths.get(outputModelFolder, modelName).toFile();
-        net.save(modelFilePath);
+        model.save(modelFilePath);
         log.info("Saved model: %s%n", modelFilePath.toPath().toString());
     }
 }
