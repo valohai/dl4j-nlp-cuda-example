@@ -60,14 +60,32 @@ $ vh lint
 $ vh exec list
 $ vh exec run --help
 ```    
+
+
+### Build the app (remote machine on the cloud)
+
+We mean using the Valohai CLI to run executions on the Valohai platform.
+
+#### CPU & GPU version
+
+```bash
+$ vh exec run build-cpu-gpu-uberjar [--adhoc] ### --adhoc if you have unsaved commits
+                                              ### and want to experiment before being                                              
+                                              ### sure of the configuration
+
+### Run `vh exec run --help` to find out more about this command
+```
+
+Creates and uploads the artifacts into the Valohai storage which can be referred to later on.
     
-### Build app
+### Build the app (local machine)
 
 #### CPU version
 
 ```
-$ ./buildUberJar.sh
+$ BACKEND=cpu ./buildUberJar.sh
 ```
+
 #### GPU version
 
 Please ensure your environment has access to an Nvidia GPU and the necessary drivers i.e. CUDA, etc...
@@ -75,7 +93,6 @@ Please ensure your environment has access to an Nvidia GPU and the necessary dri
 ```
 $ BACKEND=gpu ./buildUberJar.sh
 ```
-
 
 ### Building the docker container to run CUDA-enabled Java apps
 
