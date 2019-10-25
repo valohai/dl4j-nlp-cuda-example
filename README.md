@@ -101,6 +101,30 @@ $ vh exec list
 $ vh exec run --help
 ```
 
+- watch an execution in process using it's counter number
+```bash
+$ vh watch 1
+```
+
+- show all the outputs (end-results) of an execution
+```bash
+$ vh outputs 1
+```
+- and download the one's of your choice
+```bash
+$ vh outputs --download . --filter *.logs 1
+```
+- run a step but override one of the step variables
+```bash
+$ vh exec run train-gpu-linux --gpu-linux-uberjar=datum://016dff00-2095-4df7-5d9e-02cb7cd009bb [--adhoc]
+
+### Overrides the gpu-linux-uberjar variable in the train-gpu-linux step
+```
+- stop a running or queue execution
+```bash
+$ vh stop 2
+```
+
 #### Build the app using the Valohai platform
 
 We mean using the [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) to run executions on the [Valohai](https://valohai.org) platform.
