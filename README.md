@@ -116,7 +116,8 @@ $ vh outputs --download . --filter *.logs 1
 ```
 - run a step but override one of the step variables
 ```bash
-$ vh exec run train-gpu-linux --gpu-linux-uberjar=datum://016dff00-2095-4df7-5d9e-02cb7cd009bb [--adhoc]
+$ vh exec run train-gpu-linux \
+     --gpu-linux-uberjar=datum://016dff00-2095-4df7-5d9e-02cb7cd009bb [--adhoc]
 
 ### Overrides the gpu-linux-uberjar variable in the train-gpu-linux step
 ```
@@ -148,7 +149,8 @@ Creates and uploads the artifacts into the Valohai storage which can be referred
 **Training**
 
 ```bash
-$ vh exec run train-cpu-linux --cpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
+$ vh exec run train-cpu-linux 
+    --cpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
 
 ### Run `vh exec run --help` to find out more about this command
 ```
@@ -156,7 +158,9 @@ $ vh exec run train-cpu-linux --cpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce
 **Evaluation**
 
 ```bash
-$ vh exec run evaluate-model-linux --uber-jar=datum://016dff00-43b7-b599-0e85-23a16749146e --model=datum://016dff2a-a0d4-3e63-d8da-6a61a96a7ba6 [--adhoc]
+$ vh exec run evaluate-model-linux \
+                --uber-jar=datum://016dff00-43b7-b599-0e85-23a16749146e \
+                --model=datum://016dff2a-a0d4-3e63-d8da-6a61a96a7ba6 [--adhoc]
 ```
 
 ##### GPU version
@@ -164,7 +168,8 @@ $ vh exec run evaluate-model-linux --uber-jar=datum://016dff00-43b7-b599-0e85-23
 **Training**
 
 ```bash
-$ vh exec run train-gpu-linux --gpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
+$ vh exec run train-gpu-linux \
+    --gpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
 
 ### Run `vh exec run --help` to find out more about this command
 ```
@@ -172,7 +177,9 @@ $ vh exec run train-gpu-linux --gpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce
 **Evaluation**
 
 ```bash
-$ vh exec run evaluate-model-linux --uber-jar=datum://016dff00-2095-4df7-5d9e-02cb7cd009bb --model=datum://016dff2a-a0d4-3e63-d8da-6a61a96a7ba6 [--adhoc]
+$ vh exec run evaluate-model-linux \
+                --uber-jar=datum://016dff00-2095-4df7-5d9e-02cb7cd009bb \
+                --model=datum://016dff2a-a0d4-3e63-d8da-6a61a96a7ba6 [--adhoc]
 ```
 
 **Note:** the `datum://[sha]` links used in all the above examples will have to be replaced with the ones relevant iny our case, you can get them by quering the exections, outputs and other running tasks - using the [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) tool.
@@ -254,7 +261,8 @@ Model file created is called `CnnSentenceClassificationModel-cpu.pb`.
 *Evaluating*
 
 ```bash
-$ BACKEND=cpu ./runUberJar.sh --action evaluate --input-model-file CnnSentenceClassificationModel-cpu.pb
+$ BACKEND=cpu ./runUberJar.sh --action evaluate \
+                    --input-model-file CnnSentenceClassificationModel-cpu.pb
 ```
 
 ##### GPU version
@@ -272,7 +280,8 @@ Model file created is called `CnnSentenceClassificationModel-gpu.pb`.
 *Evaluating*
 
 ```bash
-$ BACKEND=gpu ./runUberJar.sh --action evaluate --input-model-file CnnSentenceClassificationModel-gpu.pb
+$ BACKEND=gpu ./runUberJar.sh --action evaluate \
+                    --input-model-file CnnSentenceClassificationModel-gpu.pb
 ```
 
 
