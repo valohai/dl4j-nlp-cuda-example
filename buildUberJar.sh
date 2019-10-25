@@ -43,9 +43,9 @@ runBuildGpuBackendPackage() {
     fi
 }
 
-postBuildProcessValohaiPlatform() {
+postBuildProcessOnValohaiPlatform() {
     ### Check if we are running in the Valohai environment, an empty VH_INPUTS_DIR means we are running outside that environment
-    if [[ ! -z "${VH_OUTPUTS_DIR:-}"]]; then
+    if [[ ! -z "${VH_OUTPUTS_DIR:-}" ]]; then
         ### In Valohai environment
         echo "~~~ Copying the build-time-know-your-gpus.logs file into ${VH_OUTPUTS_DIR}"
         ./know-your-gpus.sh &> "${VH_OUTPUTS_DIR}/build-time-know-your-gpus.logs"
@@ -61,4 +61,4 @@ OSNAME=${1:-$(detectOSPlatform)}
 downloadResources
 runBuildCpuBackendPackage
 runBuildGpuBackendPackage
-postBuildProcessValohaiPlatform
+postBuildProcessOnValohaiPlatform

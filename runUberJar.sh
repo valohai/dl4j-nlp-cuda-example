@@ -40,6 +40,13 @@ getJarFile() {
     echo $(ls "${FOLDER}"/dl4j-nlp-${DL4J_VERSION}-*-${OSNAME}-bin.jar | awk '{print $1}' || true)
 }
 
+copyJarForTrainingIfOnValohaiPlatform() {
+  if [[ "${ACTION}" = "train" ]] && [[ ! -z "${VH_INPUTS_DIR:-}" ]]; then
+    echo "~~~ Copying ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar into ${VH_REPOSITORY_DIR}"
+    cp ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar ${VH_REPOSITORY_DIR}
+  fi
+}
+
 checkIfJarExistsOrExit() {
   TARGET_JAR_FILE=$(getJarFile)
   if [[ -z "${TARGET_JAR_FILE}" ]]; then
@@ -59,6 +66,22 @@ runJar() {
        $*
 }
 
+copyModelAndLogsForTrainingIfOnValohaiPlatform() {
+  if [[ "${ACTION}" = "train" ]] && [[ ! -z "${VH_OUTPUTS_DIR:-}" ]]; then
+    echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
+    for filename in *.pb ; do mv $filename "${filename%.*}-${BACKEND}.pb" ; done
+    cp *.pb ${VH_OUTPUTS_DIR}
+  fi
+}
+
+copyJarAndModelForEvaluationIfOnValohaiPlatform() {
+  if [[ "${ACTION}" = "evaluate" ]] && [[ ! -z "${VH_REPOSITORY_DIR:-}" ]]; then
+    echo "~~~ Copying jar and model into ${VH_REPOSITORY_DIR}"
+    cp ${VH_INPUTS_DIR}/linux-uberjar/*.jar ${VH_REPOSITORY_DIR}
+    cp ${VH_INPUTS_DIR}/model/*.pb .
+  fi
+}
+
 DL4J_VERSION="1.0.0-beta5"
 BACKEND=${BACKEND:-gpu}
 OSNAME=$(detectOSPlatform)
@@ -67,5 +90,8 @@ TARGET_JAR_FILE=""
 downloadModelAndDatabase
 checkBackendForMacOSX
 forGPUBuildsRunKnowYourGPUsScript
+copyJarForTrainingIfOnValohaiPlatform
+copyJarAndModelForEvaluationIfOnValohaiPlatform
 checkIfJarExistsOrExit
 runJar $*
+copyModelAndLogsForTrainingIfOnValohaiPlatform

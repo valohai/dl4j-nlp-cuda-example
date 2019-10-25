@@ -28,12 +28,7 @@
       - cd ${VH_REPOSITORY_DIR}
       - BACKEND=cpu
       - ACTION=train
-      - echo "~~~ Copying ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar into ${VH_REPOSITORY_DIR}"
-      - cp ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar ${VH_REPOSITORY_DIR}
       - time ./runUberJar.sh --action ${ACTION} --output-model-dir .
-      - echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
-      - for filename in *.pb ; do mv $filename "${filename%.*}-${BACKEND}.pb" ; done
-      - cp *.pb ${VH_OUTPUTS_DIR}
     environment: aws-eu-west-1-g3-4xlarge
 
 - step:
@@ -53,12 +48,7 @@
     - cd ${VH_REPOSITORY_DIR}
     - BACKEND=gpu
     - ACTION=train
-    - echo "~~~ Copying ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar into ${VH_REPOSITORY_DIR}"
-    - cp ${VH_INPUTS_DIR}/${BACKEND}-linux-uberjar/dl4j-nlp-1.0.0-beta5-${BACKEND}-linux-bin.jar ${VH_REPOSITORY_DIR}
     - time ./runUberJar.sh --action ${ACTION} --output-model-dir .
-    - echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
-    - for filename in *.pb ; do mv $filename "${filename%.*}-${BACKEND}.pb" ; done
-    - cp *.pb ${VH_OUTPUTS_DIR}
     environment: aws-eu-west-1-g3-4xlarge
 
 - step:
@@ -80,9 +70,6 @@
       command:
       - cd ${VH_REPOSITORY_DIR}
       - ACTION=evaluate
-      - echo "~~~ Copying jar and model into ${VH_REPOSITORY_DIR}"
-      - cp ${VH_INPUTS_DIR}/linux-uberjar/*.jar ${VH_REPOSITORY_DIR}
-      - cp ${VH_INPUTS_DIR}/model/*.pb .
       - time ./runUberJar.sh --action ${ACTION} --input-model-file $(ls *.pb)
       environment: aws-eu-west-1-g3-4xlarge
 
