@@ -124,7 +124,7 @@ Creates and uploads the artifacts into the Valohai storage which can be referred
 **Training**
 
 ```bash
-$ vh exec run run-uberjar-cpu-linux --cpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
+$ vh exec run train-cpu-linux --cpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
 
 ### Run `vh exec run --help` to find out more about this command
 ```
@@ -140,7 +140,7 @@ $ vh exec run evaluate-model-linux --uber-jar=datum://016dff00-43b7-b599-0e85-23
 **Training**
 
 ```bash
-$ vh exec run run-uberjar-gpu-linux --gpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
+$ vh exec run train-gpu-linux --gpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
 
 ### Run `vh exec run --help` to find out more about this command
 ```

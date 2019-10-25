@@ -12,7 +12,7 @@
     environment: aws-eu-west-1-g2-2xlarge
 
 - step:
-    name: run-uberjar-cpu-linux
+    name: train-cpu-linux
     image: neomatrix369/dl4j-nlp-cuda:v0.5
     inputs:
       - name: cpu-linux-uberjar
@@ -32,7 +32,7 @@
     environment: aws-eu-west-1-g3-4xlarge
 
 - step:
-    name: run-uberjar-gpu-linux
+    name: train-gpu-linux
     image: neomatrix369/dl4j-nlp-cuda:v0.5
     inputs:
     - name: gpu-linux-uberjar
