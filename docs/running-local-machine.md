@@ -36,3 +36,6 @@ $ BACKEND=gpu ./runUberJar.sh --action evaluate \
                     --input-model-file CnnSentenceClassificationModel-gpu.pb
 ```
 
+---
+
+Return to main [README.md](../README.md)

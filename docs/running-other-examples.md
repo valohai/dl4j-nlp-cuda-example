@@ -20,3 +20,7 @@ You can get the other examples to work by:
 **You can find even more NLP examples at https://github.com/eclipse/deeplearning4j/deeplearning4j/deeplearning4j-nlp-parent.**
 
 And you can find more DL4J examples (non-NLP related) at https://github.com/deeplearning4j/dl4j-examples.
+
+---
+
+Return to main [README.md](../README.md)

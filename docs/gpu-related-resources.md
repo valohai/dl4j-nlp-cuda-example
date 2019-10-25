@@ -16,3 +16,7 @@
         - Installation folder: `/Developer/NVIDIA/CUDA-10.1/`
         - Sample programs folder: `/Developer/NVIDIA/CUDA-10.1/samples`
     - [Get your CUDA-Z](http://cuda-z.sourceforge.net/)
+
+---
+
+Return to main [README.md](../README.md)

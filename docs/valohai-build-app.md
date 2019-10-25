@@ -55,3 +55,7 @@ $ vh exec run evaluate-model-linux \
 ```
 
 **Note:** the `datum://[sha]` links used in all the above examples will have to be replaced with the ones relevant iny our case, you can get them by quering the exections, outputs and other running tasks - using the [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) tool.
+
+---
+
+Return to main [README.md](../README.md)

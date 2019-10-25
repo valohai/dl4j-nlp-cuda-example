@@ -35,3 +35,7 @@ $ ./runDockerContainer.sh
 ```
 
 Although if you look at the [valohai.yaml]() file, it's already done on the Valohai platform. 
+
+---
+
+Return to main [README.md](../README.md)

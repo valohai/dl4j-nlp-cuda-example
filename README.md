@@ -49,15 +49,15 @@ To be able to run the apps and tasks we will cover in this project on your local
 - Docker CE 19.03.2 or higher
 
 **_Do the above and make use of GPUs - CUDA, cuDNN, etc._**
-- Nvidia, CUDA 10.1 and cuDNN (7.0) drivers version (Linux and Windows machines only, support for MacOS is unavailable) (see [Resources](#resoures) at the bottom of this post for download and installation [details on GPUs, CUDA, cuDNN, etc...](gpu-related-resources.md))
+- Nvidia, CUDA 10.1 and cuDNN (7.0) drivers version (Linux and Windows machines only, support for MacOS is unavailable) (see [Resources](#resoures) at the bottom of this post for download and installation [details on GPUs, CUDA, cuDNN, etc...](./docs/gpu-related-resources.md))
 
 #### Valohai CLI installation and Valohai project setup
 
-See [Valohai CLI installation and Valohai project setup](valohai-setup.md)
+See [Valohai CLI installation and Valohai project setup](./docs/valohai-setup.md)
 
 #### Build the app using the Valohai platform
 
-See [Build the app using the Valohai platform](valohai-build-app.md)
+See [Build the app using the Valohai platform](./docs/valohai-build-app.md)
 
 #### Gathering Nvidia GPU, Nvidia drivers, CUDA details
 
@@ -65,7 +65,7 @@ See [Build the app using the Valohai platform](valohai-build-app.md)
 $ vh exec run know-your-gpus
 ```
 
-Will run a bunch of commands to gather Nvidia GPU, Nvidia drivers, CUDA details on a machine, this step is also used by other steps. The captured result is stored in a log file and archive after each run. See [GPU related resources]](gpu-related-resources.md)
+Will run a bunch of commands to gather Nvidia GPU, Nvidia drivers, CUDA details on a machine, this step is also used by other steps. The captured result is stored in a log file and archive after each run. See [GPU related resources]](./docs/gpu-related-resources.md)
 
 #### Build the app on the local machine
 
@@ -77,7 +77,7 @@ $ BACKEND=cpu ./buildUberJar.sh
 
 ##### GPU version
 
-**Note:** please ensure you have access to an Nvidia GPU and the necessary drivers i.e. CUDA, cuDNN etc... are installed, see [GPU related resources]](gpu-related-resources.md).
+**Note:** please ensure you have access to an Nvidia GPU and the necessary drivers i.e. CUDA, cuDNN etc... are installed, see [GPU related resources]](./docs/gpu-related-resources.md).
 
 ```bash
 $ BACKEND=gpu ./buildUberJar.sh
@@ -85,11 +85,11 @@ $ BACKEND=gpu ./buildUberJar.sh
 
 #### Run the app on the local machine
 
-See [Run the app on the local machine](running-local-machine.md)
+See [Run the app on the local machine](./docs/running-local-machine.md)
 
 #### Building the docker container to run CUDA-enabled Java apps
 
-See [Building the docker container to run CUDA-enabled Java apps](docker-cuda-app.md)
+See [Building the docker container to run CUDA-enabled Java apps](./docs/docker-cuda-app.md)
 
 #### Run app in docker container
 
@@ -101,7 +101,7 @@ At the prompt in the container, do the same as mentioned in section [Run app on 
 
 ### Running other examples on the local machine
 
-See [Running other examples on the local machine](running-other-examples.md)
+See [Running other examples on the local machine](./docs/running-other-examples.md)
 
 ## Credits
 
@@ -115,7 +115,7 @@ Original authors of this DL4J example project remain the license holders of the 
 
 - [dl4j-nlp-cuda-example](https://github.com/dl4j-nlp-cuda-example) project on GitHub
 - [CUDA enable docker container](https://hub.docker.com/r/neomatrix369/dl4j-nlp-cuda) on [Docker Hub](https://hub.docker.com) (use the latest tag: [v0.5](https://hub.docker.com/layers/neomatrix369/dl4j-nlp-cuda/v0.5/images/sha256-fcfcc2dcdf00839d918a0c475c39733d777181abb1a3c34d8dea68339369b137))
-- [GPU, Nvidia, CUDA and cuDNN](gpu-related-resources.md)
+- [GPU, Nvidia, CUDA and cuDNN](./docs/gpu-related-resources.md)
 - [Awesome AI/ML/DL resources](https://github.com/neomatrix369/awesome-ai-ml-dl/)
 - [Java AI/ML/DL resources](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/README-details.md#java)
 - [Deep Learning and DL4J Resources](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/README-details.md#deep-learning)
