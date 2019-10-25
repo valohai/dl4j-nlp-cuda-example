@@ -11,10 +11,9 @@ In the terminal window, `cd` to the project root directory `dl4j-nlp-cuda-exampl
 
 ### Quick startup
 
-
-- open and account on https://valohai.com, see https://app.valohai.com/accounts/signup/
+- open an account on [https://valohai.com](), see [https://app.valohai.com/accounts/signup/]()
 - [install Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) on your local machine or remote server
-- clone the repo https://github.com/neomatrix369/dl4j-nlp-cuda-example/
+- clone the repo [https://github.com/neomatrix369/dl4j-nlp-cuda-example/]()
 ```bash
     $ git clone https://github.com/neomatrix369/dl4j-nlp-cuda-example/
     $ cd dl4j-nlp-cuda-example
@@ -23,14 +22,14 @@ In the terminal window, `cd` to the project root directory `dl4j-nlp-cuda-exampl
 ```bash
     $ vh project create
 ```
-- link your Valohai project with the github repo https://github.com/neomatrix369/dl4j-nlp-cuda-example/ on the Repository tab of the Settings page (https://app.valohai.com/p/[your-user-id]/dl4j-nlp-cuda-example/settings/repository/)
+- link your Valohai project with the github repo [https://github.com/neomatrix369/dl4j-nlp-cuda-example/]() on the Repository tab of the Settings page (https://app.valohai.com/p/[your-user-id]/dl4j-nlp-cuda-example/settings/repository/)
 ```bash
     $ vh project open
     
     ### Go to the Settings page > Repository tab and update the git repo address with https://github.com/neomatrix369/dl4j-nlp-cuda-example/
 ```
 - update Valohai project with the latest commits from the git repo
-```
+```bash
     $ vh project fetch
 ```
 
@@ -38,17 +37,25 @@ And you are ready to start using the power of performing Machine Learning tasks 
 
 ### Advanced installation and setup
 
-To be able to run the apps and tasks we will cover in this project we would need to have the below installed and configured on our local machine (how to do each one of these are outside the scope of the project, although links to resources are provided):
+To be able to run the apps and tasks we will cover in this project on your local machine (in addition to using the Valohai platform) we would need to have the below installed and configured on your local machine (how to do each one of these are outside the scope of the project, although links to resources are provided):
 
-- Docker CE 19.03.2 or higher
+**_Build and run app on local machine_**
+- Git
 - Python 2.7 or Python 3.4 or higher
 - GraalVM CE 19.2.1 or higher (download from [https://github.com/oracle/graal/releases]())
 - Maven 3.6.0 or higher
+
+**_Build and run app inside a docker container_**
+- Docker CE 19.03.2 or higher
+
+**_Do the above and make use of GPUs - CUDA, cuDNN, etc._**
 - Nvidia, CUDA 10.1 and cuDNN (7.0) drivers version (Linux and Windows machines only, support for MacOS is unavailable) (see [Resources](#resoures) at the bottom of this post for download and installation details)
-- [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) - it’s easy to install and get started with the CLI tool, see [Command-line Usage](https://docs.valohai.com/valohai-cli/index.html?highlight=cli).
+
+#### Valohai CLI installation and Valohai project setup
+
 - Ensure you have opened an account on [https://valohai.com](), see [https://app.valohai.com/accounts/signup/]() 
 
-#### Valohai configuration and setup
+- [Install Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) - it’s easy to install and get started with the CLI tool, see [Command-line Usage](https://docs.valohai.com/valohai-cli/index.html?highlight=cli).
 
 After install the [Valohai CLI](https://docs.valohai.com/valohai-cli/index.html?highlight=cli), we will have to do the below:
 
@@ -92,9 +99,9 @@ List all environments that support GPUs with their price tag and their queue sta
 $ vh lint
 $ vh exec list
 $ vh exec run --help
-```    
+```
 
-#### Build the app (remote machine on the cloud)
+#### Build the app using the Valohai platform
 
 We mean using the [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) to run executions on the [Valohai](https://valohai.org) platform.
 
@@ -109,7 +116,51 @@ $ vh exec run build-cpu-gpu-uberjar [--adhoc]
 Note: use `--adhoc` only if you have not setup your Valohai project with a git repo or have unsaved commits and want to experiment before being sure of the configuration.
 
 Creates and uploads the artifacts into the Valohai storage which can be referred to later on.
-    
+
+#### Run the app using the Valohai platform
+
+##### CPU version
+
+**Training**
+
+```bash
+$ vh exec run run-uberjar-cpu-linux --cpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
+
+### Run `vh exec run --help` to find out more about this command
+```
+
+**Evaluation**
+
+```bash
+$ vh exec run evaluate-model-linux --uber-jar=datum://016dff00-43b7-b599-0e85-23a16749146e --model=datum://016dff2a-a0d4-3e63-d8da-6a61a96a7ba6 [--adhoc]
+```
+
+##### GPU version
+
+**Training**
+
+```bash
+$ vh exec run run-uberjar-gpu-linux --gpu-linux-uberjar=datum://016dffe8-0faa-ca1d-4ce4-994274576fe1 [--adhoc]
+
+### Run `vh exec run --help` to find out more about this command
+```
+
+**Evaluation**
+
+```bash
+$ vh exec run evaluate-model-linux --uber-jar=datum://016dff00-2095-4df7-5d9e-02cb7cd009bb --model=datum://016dff2a-a0d4-3e63-d8da-6a61a96a7ba6 [--adhoc]
+```
+
+**Note:** the `datum://[sha]` links used in all the above examples will have to be replaced with the ones relevant iny our case, you can get them by quering the exections, outputs and other running tasks - using the [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) tool.
+
+#### Gathering Nvidia GPU, Nvidia drivers, CUDA details
+
+```bash
+$ vh exec run know-your-gpus
+```
+
+Will run a bunch of commands to gather Nvidia GPU, Nvidia drivers, CUDA details on a machine, this step is also used by other steps. The captured result is stored in a log file and archive after each run.
+
 #### Build the app (local machine)
 
 ##### CPU version
@@ -120,7 +171,7 @@ $ BACKEND=cpu ./buildUberJar.sh
 
 ##### GPU version
 
-Please ensure your environment has access to an Nvidia GPU and the necessary drivers i.e. CUDA, etc...
+**Note:** please ensure you have access to an Nvidia GPU and the necessary drivers i.e. CUDA, cuDNN etc... are installed.
 
 ```bash
 $ BACKEND=gpu ./buildUberJar.sh
@@ -129,6 +180,8 @@ $ BACKEND=gpu ./buildUberJar.sh
 #### Building the docker container to run CUDA-enabled Java apps
 
 **For the sake of this project you won't need to do any of the below steps in this section, as we already have a [pre-baked CUDA-enabled docker image](https://hub.docker.com/r/neomatrix369/dl4j-nlp-cuda/tags) for your use.** The docker image contains everything mentioned in the pre-requites in the [Advanced installation and setup](#advanced-installation-and-setup) section.
+
+But if you like to explore further please dive into it.
 
 ##### Build docker image
 
@@ -172,7 +225,7 @@ Although if you look at the [valohai.yaml]() file, it's already done on the Valo
 $ BACKEND=cpu ./runUberJar.sh --action train --output-model-dir .
 ```
 
-Model file created and seeked for in the respective cases, is called `CnnSentenceClassificationModel-cpu.pb`.
+Model file created is called `CnnSentenceClassificationModel-cpu.pb`.
 
 *Evaluating*
 
@@ -182,7 +235,7 @@ $ BACKEND=cpu ./runUberJar.sh --action evaluate --input-model-file CnnSentenceCl
 
 ##### GPU version
 
-Please ensure your environment has access to an Nvidia GPU and the necessary drivers i.e. CUDA, etc...
+**Note:** please ensure you have access to an Nvidia GPU and the necessary drivers i.e. CUDA, cuDNN etc... are installed.
 
 *Training*
 
@@ -190,7 +243,7 @@ Please ensure your environment has access to an Nvidia GPU and the necessary dri
 $ BACKEND=gpu ./runUberJar.sh --action train --output-model-dir .
 ```
 
-Model file created and seeked for in the respective cases, is called `CnnSentenceClassificationModel-gpu.pb`.
+Model file created is called `CnnSentenceClassificationModel-gpu.pb`.
 
 *Evaluating*
 
@@ -244,7 +297,7 @@ Original authors of this DL4J example project remain the license holders of the 
 - [Java AI/ML/DL resources](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/README-details.md#java)
 - [Deep Learning and DL4J Resources](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/README-details.md#deep-learning)
 - Valohai resources
-  - [valohai](https://valohai.com/) | [docs](https://docs.valohai.com/) | [blogs](https://blog.valohai.com/) | [GitHub](https://github.com/valohai) | [Videos](https://www.youtube.com/channel/UCiR8Fpv6jRNphaZ99PnIuFg) | [Showcase](https://valohai.com/showcase/) | [About Valohai](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/data/about-Valohai.md#valohai) | [Slack](https://community-slack.valohai.com/)
+  - [valohai](https://valohai.com/) | [docs](https://docs.valohai.com/) | [blogs](https://blog.valohai.com/) | [GitHub](https://github.com/valohai) | [Videos](https://www.youtube.com/channel/UCiR8Fpv6jRNphaZ99PnIuFg) | [Showcase](https://valohai.com/showcase/) | [About Valohai](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/data/about-Valohai.md#valohai) | [Slack](https://community-slack.valohai.com/) | [@valohaiai](https://twitter.com/@valohaiai)
   - Blog posts on how to use the CLI tool: [1](https://blog.valohai.com/from-zero-to-hero-with-valohai-cli) | [2](https://blog.valohai.com/from-zero-to-hero-with-valohai-part-2)
 - Other resources
   - [Awesome Graal](https://github.com/neomatrix369/awesome-graal) | [graalvm.org](https://www.graalvm.org/)
