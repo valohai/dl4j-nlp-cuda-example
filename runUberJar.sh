@@ -66,11 +66,12 @@ runJar() {
        $*
 }
 
-copyModelAndLogsForTrainingIfOnValohaiPlatform() {
+copyModelForTrainingIfOnValohaiPlatform() {
   if [[ "${ACTION}" = "train" ]] && [[ ! -z "${VH_OUTPUTS_DIR:-}" ]]; then
-    echo "~~~ Copying all created models into ${VH_OUTPUTS_DIR}"
+    echo "~~~ Copying all created models and checkpoints into ${VH_OUTPUTS_DIR}"
     for filename in *.pb ; do mv $filename "${filename%.*}-${BACKEND}.pb" ; done
     cp *.pb ${VH_OUTPUTS_DIR}
+    cp ./checkpoint* ${VH_OUTPUTS_DIR}
   fi
 }
 
@@ -94,4 +95,4 @@ copyJarForTrainingIfOnValohaiPlatform
 copyJarAndModelForEvaluationIfOnValohaiPlatform
 checkIfJarExistsOrExit
 runJar $*
-copyModelAndLogsForTrainingIfOnValohaiPlatform
+copyModelForTrainingIfOnValohaiPlatform
