@@ -49,7 +49,7 @@ To be able to run the apps and tasks we will cover in this project on your local
 - Docker CE 19.03.2 or higher
 
 **_Do the above and make use of GPUs - CUDA, cuDNN, etc._**
-- Nvidia, CUDA 10.1 and cuDNN (7.0) drivers version (Linux and Windows machines only, support for MacOS is unavailable) (see [Resources](#resoures) at the bottom of this post for download and installation details)
+- Nvidia, CUDA 10.1 and cuDNN (7.0) drivers version (Linux and Windows machines only, support for MacOS is unavailable) (see [Resources](#resoures) at the bottom of this post for download and installation details on GPUs, CUDA, cuDNN, etc...)
 
 #### Valohai CLI installation and Valohai project setup
 
@@ -317,14 +317,47 @@ Original authors of this DL4J example project remain the license holders of the 
 
 ### Resources
 
+- [dl4j-nlp-cuda-example](https://github.com/dl4j-nlp-cuda-example) project on GitHub
+- [CUDA enable docker container](https://hub.docker.com/r/neomatrix369/dl4j-nlp-cuda) on [Docker Hub](https://hub.docker.com) (use the latest tag: [v0.5](https://hub.docker.com/layers/neomatrix369/dl4j-nlp-cuda/v0.5/images/sha256-fcfcc2dcdf00839d918a0c475c39733d777181abb1a3c34d8dea68339369b137))
+- **GPU, Nvidia, CUDA and cuDNN**
+    - [Using Deeplearning4j with cuDNN](https://deeplearning4j.org/docs/latest/deeplearning4j-config-cudnn)
+    - [Cuda tookit documentation](https://docs.nvidia.com/cuda/)
+    - Need to be signed into https://developer.nvidia.com/ to access the below links
+        - https://developer.nvidia.com/rdp/cudnn-download
+            - https://developer.nvidia.com/rdp/cudnn-archive
+    - [Deep Learning SDK documentation](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html)
+    - [Enabling GPUs in the Container Runtime Ecosystem](https://devblogs.nvidia.com/gpu-containers-runtime/)
+    - [How To Install CUDA 10 (together with 9.2) on Ubuntu 18.04 with support for NVIDIA 20XX Turing GPUs](https://www.pugetsystems.com/labs/hpc/How-To-Install-CUDA-10-together-with-9-2-on-Ubuntu-18-04-with-support-for-NVIDIA-20XX-Turing-GPUs-1236/) (and related posts)
+    - [How to install the NVIDIA drivers on Ubuntu 18.04 Bionic Beaver Linux?](https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-ubuntu-18-04-bionic-beaver-linux)
+    - https://hub.docker.com/r/nvidia/cuda | https://hub.docker.com/r/nvidia
+    - [How to check which CUDA version is installed on Linux](http://arnon.dk/check-cuda-installed/)
+    - MacOSX (experimental)
+        - Installer: https://developer.nvidia.com/cuda-80-ga2-download-archive
+            - Installation folder: `/Developer/NVIDIA/CUDA-10.1/`
+            - Sample programs folder: `/Developer/NVIDIA/CUDA-10.1/samples`
+        - [Get your CUDA-Z](http://cuda-z.sourceforge.net/)
 - [Awesome AI/ML/DL resources](https://github.com/neomatrix369/awesome-ai-ml-dl/)
 - [Java AI/ML/DL resources](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/README-details.md#java)
 - [Deep Learning and DL4J Resources](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/README-details.md#deep-learning)
-- Valohai resources
-  - [valohai](https://valohai.com/) | [docs](https://docs.valohai.com/) | [blogs](https://blog.valohai.com/) | [GitHub](https://github.com/valohai) | [Videos](https://www.youtube.com/channel/UCiR8Fpv6jRNphaZ99PnIuFg) | [Showcase](https://valohai.com/showcase/) | [About Valohai](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/data/about-Valohai.md#valohai) | [Slack](https://community-slack.valohai.com/) | [@valohaiai](https://twitter.com/@valohaiai)
-  - Blog posts on how to use the CLI tool: [1](https://blog.valohai.com/from-zero-to-hero-with-valohai-cli) | [2](https://blog.valohai.com/from-zero-to-hero-with-valohai-part-2)
+    - **Awesome AI/ML/DL:** [NLP resources](https://github.com/neomatrix369/awesome-ai-ml-dl/tree/master/natural-language-processing#natural-language-processing-nlp)
+    - **DL4J NLP resources**
+        - [Language processing](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-overview)
+            - [ND4J backends for GPUs and CPUs](https://deeplearning4j.org/docs/latest/deeplearning4j-config-gpu-cpu)
+            - [How the Vocab Cache Works](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-vocabulary-cache)
+            - [Word2Vec, Doc2vec & GloVe: Neural Word Embeddings for Natural Language Processing](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-word2vec)
+            - [Doc2Vec, or Paragraph Vectors, in Deeplearning4j](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-doc2vec)
+            - [Sentence iterator](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-sentence-iterator)
+            - [What is Tokenization?](http://- https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-tokenization)
+- **Valohai resources**
+    - [valohai](https://www.valohai.com/) | [docs](https://docs.valohai.com/) | [blogs](https://blogs.valohai.com/) | [GitHub](https://github.com/valohai) | [Videos](https://www.youtube.com/channel/UCiR8Fpv6jRNphaZ99PnIuFg/videos) | [Showcase](https://valohai.com/showcase/) | [About valohai](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/data/about-Valohai.md#valohai) | [Slack](http://community-slack.valohai.com/) | [@valohaiai](https://twitter.com/@valohaiai)
+    - [Search for any topic in the Documentation](https://docs.valohai.com/search.html?q=%3Cany+topic%3E)
+    - Blog posts on how to use the Valohai CLI tool: [[1]](https://blog.valohai.com/from-zero-to-hero-with-valohai-cli) | [[2]](https://blog.valohai.com/from-zero-to-hero-with-valohai-part-2)
+    - [Custom Docker Images](https://docs.valohai.com/guides/build-docker-image.html)
 - Other resources
   - [Awesome Graal](https://github.com/neomatrix369/awesome-graal) | [graalvm.org](https://www.graalvm.org/)
+- Other related posts
+    - [How to do Deep Learning for Java on the Valohai Platform?](https://blog.valohai.com/how-to-do-deep-learning-for-java-on-the-valohai-platform)
+    - Blog posts on how to use the Valohai CLI tool: [[1]](https://blog.valohai.com/from-zero-to-hero-with-valohai-cli) | [[2]](https://blog.valohai.com/from-zero-to-hero-with-valohai-part-2)
 
 ---
 
