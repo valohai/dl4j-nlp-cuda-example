@@ -26,8 +26,8 @@
         description: word2vec pre-trained Google News corpus
     command:
       - cd ${VH_REPOSITORY_DIR}
-      - BACKEND=cpu
-      - ACTION=train
+      - export BACKEND=cpu
+      - export ACTION=train
       - time ./runUberJar.sh --action ${ACTION} --output-model-dir .
     environment: aws-eu-west-1-g3-4xlarge
 
@@ -46,8 +46,8 @@
       description: word2vec pre-trained Google News corpus
     command:
     - cd ${VH_REPOSITORY_DIR}
-    - BACKEND=gpu
-    - ACTION=train
+    - export BACKEND=gpu
+    - export ACTION=train
     - time ./runUberJar.sh --action ${ACTION} --output-model-dir .
     environment: aws-eu-west-1-g3-4xlarge
 
@@ -69,7 +69,7 @@
         description: word2vec pre-trained Google News corpus
       command:
       - cd ${VH_REPOSITORY_DIR}
-      - ACTION=evaluate
+      - export ACTION=evaluate
       - time ./runUberJar.sh --action ${ACTION} --input-model-file $(ls *.pb)
       environment: aws-eu-west-1-g3-4xlarge
 
