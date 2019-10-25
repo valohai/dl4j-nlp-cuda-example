@@ -70,6 +70,9 @@
       command:
       - cd ${VH_REPOSITORY_DIR}
       - export ACTION=evaluate
+      - echo "~~~ Copying jar and model into ${VH_REPOSITORY_DIR}"
+      - cp ${VH_INPUTS_DIR}/linux-uberjar/*.jar ${VH_REPOSITORY_DIR}
+      - cp ${VH_INPUTS_DIR}/model/*.pb .
       - time ./runUberJar.sh --action ${ACTION} --input-model-file $(ls *.pb)
       environment: aws-eu-west-1-g3-4xlarge
 

@@ -75,14 +75,6 @@ copyModelForTrainingIfOnValohaiPlatform() {
   fi
 }
 
-copyJarAndModelForEvaluationIfOnValohaiPlatform() {
-  if [[ "${ACTION}" = "evaluate" ]] && [[ ! -z "${VH_REPOSITORY_DIR:-}" ]]; then
-    echo "~~~ Copying jar and model into ${VH_REPOSITORY_DIR}"
-    cp ${VH_INPUTS_DIR}/linux-uberjar/*.jar ${VH_REPOSITORY_DIR}
-    cp ${VH_INPUTS_DIR}/model/*.pb .
-  fi
-}
-
 DL4J_VERSION="1.0.0-beta5"
 BACKEND=${BACKEND:-gpu}
 OSNAME=$(detectOSPlatform)
@@ -92,7 +84,6 @@ downloadModelAndDatabase
 checkBackendForMacOSX
 forGPUBuildsRunKnowYourGPUsScript
 copyJarForTrainingIfOnValohaiPlatform
-copyJarAndModelForEvaluationIfOnValohaiPlatform
 checkIfJarExistsOrExit
 runJar $*
 copyModelForTrainingIfOnValohaiPlatform
