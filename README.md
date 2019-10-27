@@ -105,7 +105,7 @@ See [Running other examples on the local machine](./docs/running-other-examples.
 
 ## Credits
 
-This example has been inspired by the DL4J NLP examples: [nlp](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/nlp) | [convolution: sentence classifier](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/sentenceclassification) | [recurrent: character](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/character) | [recurrent: process news](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/processnews) | [recurrent: word2vec and sentiment analysis](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/word2vecsentiment )examples from DL4J. Credits to the original authors of this example on https://github.com/deeplearning4j/dl4j-examples, 
+This example has been inspired by the DL4J NLP examples: [nlp](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/nlp) | [convolution: sentence classifier](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/sentenceclassification) | [recurrent: character](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/character) | [recurrent: process news](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/processnews) | [recurrent: word2vec and sentiment analysis](https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/recurrent/word2vecsentiment ) examples from DL4J. Credits to the original authors of this example on https://github.com/deeplearning4j/dl4j-examples.
 
 ## License
 
@@ -128,6 +128,9 @@ Original authors of this DL4J example project remain the license holders of the 
             - [Doc2Vec, or Paragraph Vectors, in Deeplearning4j](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-doc2vec)
             - [Sentence iterator](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-sentence-iterator)
             - [What is Tokenization?](http://- https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-tokenization)
+        - Examples
+            - https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples
+            - https://github.com/eclipse/deeplearning4j/deeplearning4j/deeplearning4j-nlp-parent
 - **Valohai resources**
     - [valohai](https://www.valohai.com/) | [docs](https://docs.valohai.com/) | [blogs](https://blogs.valohai.com/) | [GitHub](https://github.com/valohai) | [Videos](https://www.youtube.com/channel/UCiR8Fpv6jRNphaZ99PnIuFg/videos) | [Showcase](https://valohai.com/showcase/) | [About valohai](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/data/about-Valohai.md#valohai) | [Slack](http://community-slack.valohai.com/) | [@valohaiai](https://twitter.com/@valohaiai)
     - [Search for any topic in the Documentation](https://docs.valohai.com/search.html?q=%3Cany+topic%3E)
