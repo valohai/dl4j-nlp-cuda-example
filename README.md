@@ -12,21 +12,21 @@ In the terminal window, `cd` to the project root directory `dl4j-nlp-cuda-exampl
 ### Quick startup
 
 - open an account on [https://valohai.com](), see [https://app.valohai.com/accounts/signup/]()
-- [install Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) on your local machine or remote server
-- clone the repo [https://github.com/neomatrix369/dl4j-nlp-cuda-example/]()
+- [install Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) on your local machine
+- clone _this repo (https://github.com/.../dl4j-nlp-cuda-example/)_
 ```bash
-    $ git clone https://github.com/neomatrix369/dl4j-nlp-cuda-example/
+    $ git clone [url to this repo]
     $ cd dl4j-nlp-cuda-example
 ```
 - create a Valohai project using the [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) tool, and give it a name
 ```bash
     $ vh project create
 ```
-- link your Valohai project with the github repo [https://github.com/neomatrix369/dl4j-nlp-cuda-example/]() on the Repository tab of the Settings page (https://app.valohai.com/p/[your-user-id]/dl4j-nlp-cuda-example/settings/repository/)
+- link your Valohai project with the _url to this github repo_ on the Repository tab of the Settings page (https://app.valohai.com/p/[your-user-id]/dl4j-nlp-cuda-example/settings/repository/)
 ```bash
     $ vh project open
     
-    ### Go to the Settings page > Repository tab and update the git repo address with https://github.com/neomatrix369/dl4j-nlp-cuda-example/
+    ### Go to the Settings page > Repository tab and update the git repo address with this git repo: https://github.com/.../dl4j-nlp-cuda-example/
 ```
 - update Valohai project with the latest commits from the git repo
 ```bash
@@ -113,7 +113,7 @@ Original authors of this DL4J example project remain the license holders of the 
 
 ### Resources
 
-- [dl4j-nlp-cuda-example](https://github.com/dl4j-nlp-cuda-example) project on GitHub
+- [dl4j-nlp-cuda-example](https://github.com/valohai/dl4j-nlp-cuda-example) project on GitHub
 - [CUDA enable docker container](https://hub.docker.com/r/neomatrix369/dl4j-nlp-cuda) on [Docker Hub](https://hub.docker.com) (use the latest tag: [v0.5](https://hub.docker.com/layers/neomatrix369/dl4j-nlp-cuda/v0.5/images/sha256-fcfcc2dcdf00839d918a0c475c39733d777181abb1a3c34d8dea68339369b137))
 - [GPU, Nvidia, CUDA and cuDNN](./docs/gpu-related-resources.md)
 - [Awesome AI/ML/DL resources](https://github.com/neomatrix369/awesome-ai-ml-dl/)
