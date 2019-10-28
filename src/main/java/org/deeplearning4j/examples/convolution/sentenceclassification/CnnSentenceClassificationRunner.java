@@ -63,7 +63,8 @@ public class CnnSentenceClassificationRunner {
     String inputModelFilePath;
 
     public static void main(String[] args) throws Exception {
-        CnnSentenceClassificationRunner cnnSentenceClassificationRunner = new CnnSentenceClassificationRunner();
+        CnnSentenceClassificationRunner cnnSentenceClassificationRunner
+                = new CnnSentenceClassificationRunner();
 
         JCommander.newBuilder()
                 .addObject(cnnSentenceClassificationRunner)
@@ -80,7 +81,8 @@ public class CnnSentenceClassificationRunner {
         Nd4j.getMemoryManager().setAutoGcWindow(5000);
 
         if (action.equalsIgnoreCase("train")) {
-            CnnSentenceClassificationTrain training = new CnnSentenceClassificationTrain(outputModelDir);
+            CnnSentenceClassificationTrain training =
+                    new CnnSentenceClassificationTrain(outputModelDir);
             training.run(32,
                     300,
                     1,
@@ -102,7 +104,8 @@ public class CnnSentenceClassificationRunner {
     void displayModelInfo(ComputationGraph model) {
         log.info("Number of parameters by layer:");
         for(Layer l : model.getLayers() ){
-            log.info(String.format("\t%s\t%d", l.conf().getLayer().getLayerName(), l.numParams()));
+            log.info(String.format("\t%s\t%d",
+                    l.conf().getLayer().getLayerName(), l.numParams()));
         }
     }
 
@@ -113,7 +116,8 @@ public class CnnSentenceClassificationRunner {
         //Load word vectors and get the dataset iterators for training and testing
         log.info("Loading word2vec model and creating dataset iterators (this may take a moment: ~1 to 2 minutes)");
         log.info("~~~ Loading the word2vec model");
-        WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
+        WordVectors wordVectors =
+                WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
         log.info("~~~ Creating dataset iterators:");
         String path = FilenameUtils.concat(DATA_PATH, (type ? "aclImdb/train/" : "aclImdb/test/"));
         String positiveBaseDir = FilenameUtils.concat(path, "pos");
@@ -127,7 +131,8 @@ public class CnnSentenceClassificationRunner {
         reviewFilesMap.put("Negative", Arrays.asList(fileNegative.listFiles()));
 
         LabeledSentenceProvider sentenceProvider =
-                new FileLabeledSentenceProvider(reviewFilesMap, new Random(randomSeedForRepeatability));
+                new FileLabeledSentenceProvider(reviewFilesMap,
+                        new Random(randomSeedForRepeatability));
 
         return new CnnSentenceDataSetIterator.Builder()
                 .sentenceProvider(sentenceProvider)

@@ -90,7 +90,14 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         saveTrainedModel(model);
     }
 
-    private ComputationGraphConfiguration configureModelLayers(int batchSize, int vectorSize, int truncateReviewsToLength, int cnnLayerFeatureMaps, PoolingType globalPoolingType, int randomSeedForRepeatability, double learningRate) {
+    private ComputationGraphConfiguration configureModelLayers(
+            int batchSize,
+            int vectorSize,
+            int truncateReviewsToLength,
+            int cnnLayerFeatureMaps,
+            PoolingType globalPoolingType,
+            int randomSeedForRepeatability,
+            double learningRate) {
         //Set up the network configuration. Note that we have multiple convolution layers, each wih filter
         //widths of 3, 4 and 5 as per Kim (2014) paper.
         log.info(String.format("batchSize = %d", batchSize));
@@ -98,7 +105,7 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         log.info(String.format("truncateReviewsToLength = %d", truncateReviewsToLength));
         log.info(String.format("cnnLayerFeatureMaps = %d", cnnLayerFeatureMaps));
         log.info(String.format("randomSeedForRepeatability = %d", randomSeedForRepeatability));
-        log.info(String.format("globalPoolingType = %d", PoolingType.valueOf(globalPoolingType.name())));
+        log.info(String.format("globalPoolingType = %s", PoolingType.valueOf(globalPoolingType.name())));
         log.info(String.format("learningRate = %d", learningRate));
 
         log.info("Build model....");
