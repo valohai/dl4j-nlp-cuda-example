@@ -5,7 +5,9 @@
 ### Training
 
 ```bash
-$ BACKEND=cpu ./runUberJar.sh --action train --output-model-dir .
+$ export BACKEND=cpu 
+$ export ACTION=train
+$ ./runUberJar.sh --action ${ACTION} --output-model-dir .
 ```
 
 Model file created is called `CnnSentenceClassificationModel-cpu.pb`.
@@ -13,8 +15,10 @@ Model file created is called `CnnSentenceClassificationModel-cpu.pb`.
 ### Evaluating
 
 ```bash
-$ BACKEND=cpu ./runUberJar.sh --action evaluate \
-                    --input-model-file CnnSentenceClassificationModel-cpu.pb
+$ export BACKEND=cpu 
+$ export ACTION=evaluate
+$ ./runUberJar.sh --action ${ACTION} \
+                    --input-model-file CnnSentenceClassificationModel-${BACKEND}.pb
 ```
 
 ## GPU version
@@ -24,7 +28,9 @@ $ BACKEND=cpu ./runUberJar.sh --action evaluate \
 ### Training
 
 ```bash
-$ BACKEND=gpu ./runUberJar.sh --action train --output-model-dir .
+$ export BACKEND=cpu 
+$ export ACTION=train
+$ ./runUberJar.sh --action ${ACTION} --output-model-dir .
 ```
 
 Model file created is called `CnnSentenceClassificationModel-gpu.pb`.
@@ -32,8 +38,10 @@ Model file created is called `CnnSentenceClassificationModel-gpu.pb`.
 ### Evaluating
 
 ```bash
-$ BACKEND=gpu ./runUberJar.sh --action evaluate \
-                    --input-model-file CnnSentenceClassificationModel-gpu.pb
+$ export BACKEND=gpu
+$ export ACTION=evaluate
+$ ./runUberJar.sh --action ${ACTION} \
+                    --input-model-file CnnSentenceClassificationModel-${BACKEND}.pb
 ```
 
 ---

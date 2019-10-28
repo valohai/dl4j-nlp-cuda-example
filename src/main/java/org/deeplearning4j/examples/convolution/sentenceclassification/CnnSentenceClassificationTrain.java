@@ -106,7 +106,7 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         log.info(String.format("cnnLayerFeatureMaps = %d", cnnLayerFeatureMaps));
         log.info(String.format("randomSeedForRepeatability = %d", randomSeedForRepeatability));
         log.info(String.format("globalPoolingType = %s", PoolingType.valueOf(globalPoolingType.name())));
-        log.info(String.format("learningRate = %d", learningRate));
+        log.info(String.format("learningRate = %f", learningRate));
 
         log.info("Build model....");
         return new NeuralNetConfiguration.Builder()
