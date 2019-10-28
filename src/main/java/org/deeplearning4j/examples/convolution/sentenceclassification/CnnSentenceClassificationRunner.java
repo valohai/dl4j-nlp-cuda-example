@@ -23,10 +23,15 @@ import org.deeplearning4j.examples.recurrent.word2vecsentiment.Word2VecSentiment
 import org.deeplearning4j.iterator.CnnSentenceDataSetIterator;
 import org.deeplearning4j.iterator.LabeledSentenceProvider;
 import org.deeplearning4j.iterator.provider.FileLabeledSentenceProvider;
+import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
+import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.conf.layers.PoolingType;
+import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.*;
@@ -39,6 +44,8 @@ import java.util.*;
  * @author Alex Black
  */
 public class CnnSentenceClassificationRunner {
+
+    private static Logger log = LoggerFactory.getLogger(CnnSentenceClassificationRunner.class);
 
     /** Location to save and extract the training/testing data */
     static final String DATA_PATH = String.format("%s/data/dl4j_w2vSentiment/", System.getProperty("user.dir"));
@@ -92,9 +99,23 @@ public class CnnSentenceClassificationRunner {
         }
     }
 
-    DataSetIterator getDataSetIterator(boolean isTraining, WordVectors wordVectors, int minibatchSize,
-                                                      int maxSentenceLength, Random rng ) {
-        String path = FilenameUtils.concat(DATA_PATH, (isTraining ? "aclImdb/train/" : "aclImdb/test/"));
+    void displayModelInfo(ComputationGraph model) {
+        log.info("Number of parameters by layer:");
+        for(Layer l : model.getLayers() ){
+            log.info(String.format("\t%s\t%d", l.conf().getLayer().getLayerName(), l.numParams()));
+        }
+    }
+
+    DataSetIterator getDataSetIterator(boolean type,
+                                       int batchSize,
+                                       int truncateReviewsToLength,
+                                       int randomSeedForRepeatability) {
+        //Load word vectors and get the dataset iterators for training and testing
+        log.info("Loading word2vec model and creating dataset iterators (this may take a moment: ~1 to 2 minutes)");
+        log.info("~~~ Loading the word2vec model");
+        WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
+        log.info("~~~ Creating dataset iterators:");
+        String path = FilenameUtils.concat(DATA_PATH, (type ? "aclImdb/train/" : "aclImdb/test/"));
         String positiveBaseDir = FilenameUtils.concat(path, "pos");
         String negativeBaseDir = FilenameUtils.concat(path, "neg");
 
@@ -105,13 +126,14 @@ public class CnnSentenceClassificationRunner {
         reviewFilesMap.put("Positive", Arrays.asList(filePositive.listFiles()));
         reviewFilesMap.put("Negative", Arrays.asList(fileNegative.listFiles()));
 
-        LabeledSentenceProvider sentenceProvider = new FileLabeledSentenceProvider(reviewFilesMap, rng);
+        LabeledSentenceProvider sentenceProvider =
+                new FileLabeledSentenceProvider(reviewFilesMap, new Random(randomSeedForRepeatability));
 
         return new CnnSentenceDataSetIterator.Builder()
                 .sentenceProvider(sentenceProvider)
                 .wordVectors(wordVectors)
-                .minibatchSize(minibatchSize)
-                .maxSentenceLength(maxSentenceLength)
+                .minibatchSize(batchSize)
+                .maxSentenceLength(truncateReviewsToLength)
                 .useNormalizedWordVectors(false)
                 .build();
     }

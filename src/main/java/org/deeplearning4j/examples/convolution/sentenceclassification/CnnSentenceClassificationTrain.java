@@ -18,7 +18,6 @@ package org.deeplearning4j.examples.convolution.sentenceclassification;
 
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
-import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
 import org.deeplearning4j.nn.conf.ConvolutionMode;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
@@ -40,7 +39,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.*;
 
 /**
  * Convolutional Neural Networks for Sentence Classification - https://arxiv.org/abs/1408.5882
@@ -125,23 +123,8 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         ComputationGraph model = new ComputationGraph(config);
         model.init();
 
-        log.info("Number of parameters by layer:");
-        for(Layer l : model.getLayers() ){
-            log.info(String.format("\t%s\t%d", l.conf().getLayer().getLayerName(), l.numParams()));
-        }
-
-        //Load word vectors and get the dataset iterators for training and testing
-        log.info("Loading word2vec model and creating dataset iterators (this may take a moment: ~1 to 2 minutes)");
-        log.info("~~~ Loading the word2vec model");
-        WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
-        log.info("~~~ Creating dataset iterators:");
-        DataSetIterator trainIter = getDataSetIterator(
-                TRAINING,
-                wordVectors,
-                batchSize,
-                truncateReviewsToLength,
-                new Random(randomSeedForRepeatability)
-        );
+        displayModelInfo(model);
+        DataSetIterator trainIter = getDataSetIterator(TRAINING, batchSize, truncateReviewsToLength, randomSeedForRepeatability);
 
         log.info("Starting training");
         model.setListeners(

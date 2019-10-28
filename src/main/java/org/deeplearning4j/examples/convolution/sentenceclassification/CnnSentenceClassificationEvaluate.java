@@ -66,23 +66,8 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
 
         ComputationGraph model = ComputationGraph.load(new File(modelFilePath), true);
 
-        log.info("Number of parameters by layer:");
-        for(Layer l : model.getLayers() ){
-            log.info(String.format("\t%s\t%d", l.conf().getLayer().getLayerName(), l.numParams()));
-        }
-
-        //Load word vectors and get the dataset iterators for testing
-        log.info("Loading word2vec model and creating dataset iterators (this may take a moment: ~1 to 2 minutes)");
-        log.info("~~~ Loading the word2vec model");
-        WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
-        log.info("~~~ Creating DataSetIterators:");
-        DataSetIterator testIter = getDataSetIterator(
-                TESTING,
-                wordVectors,
-                batchSize,
-                truncateReviewsToLength,
-                new Random(randomSeedForRepeatability)
-        );
+        displayModelInfo(model);
+        DataSetIterator testIter = getDataSetIterator(TESTING, batchSize, truncateReviewsToLength, randomSeedForRepeatability);
 
         log.info(String.format("\n\nEvaluating the model (please be patient this may take a moment): %s", modelFilePath));
         model.setListeners(
