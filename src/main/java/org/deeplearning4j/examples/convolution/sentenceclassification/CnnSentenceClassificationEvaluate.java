@@ -71,8 +71,8 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
             log.info(String.format("\t%s\t%d", l.conf().getLayer().getLayerName(), l.numParams()));
         }
 
-        //Load word vectors and get the DataSetIterators for testing
-        log.info("Loading word2vec model and creating DataSetIterators (this may take a moment: ~1 to 2 minutes)");
+        //Load word vectors and get the dataset iterators for testing
+        log.info("Loading word2vec model and creating dataset iterators (this may take a moment: ~1 to 2 minutes)");
         log.info("~~~ Loading the word2vec model");
         WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
         log.info("~~~ Creating DataSetIterators:");
@@ -109,9 +109,9 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
             log.info(String.format("\n\nPredictions for a negative review (%%d):%d", sentenceIndex));
             for( int index=0; index<labels.size(); index++ ){
                 log.info(String.format("Probability that the review being %s = %s (%d confidence)",
-                        labels.get(index),
-                        predictionsNegative.getDouble(index),
-                        predictionsNegative.getDouble(index) * 100
+                            labels.get(index),
+                            predictionsNegative.getDouble(index),
+                            predictionsNegative.getDouble(index) * 100
                         )
                 );
             }

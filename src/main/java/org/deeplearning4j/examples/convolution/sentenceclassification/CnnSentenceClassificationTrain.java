@@ -52,7 +52,7 @@ import java.util.*;
 public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRunner {
 
     private static Logger log = LoggerFactory.getLogger(CnnSentenceClassificationTrain.class);
-
+    private static final String MODEL_NAME = "CnnSentenceClassificationModel.pb";
     private static final boolean TRAINING = true;
 
     private String outputModelFolder;
@@ -130,11 +130,11 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
             log.info(String.format("\t%s\t%d", l.conf().getLayer().getLayerName(), l.numParams()));
         }
 
-        //Load word vectors and get the DataSetIterators for training and testing
-        log.info("Loading word2vec model and creating DataSetIterators (this may take a moment: ~1 to 2 minutes)");
+        //Load word vectors and get the dataset iterators for training and testing
+        log.info("Loading word2vec model and creating dataset iterators (this may take a moment: ~1 to 2 minutes)");
         log.info("~~~ Loading the word2vec model");
         WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
-        log.info("~~~ Creating DataSetIterators:");
+        log.info("~~~ Creating dataset iterators:");
         DataSetIterator trainIter = getDataSetIterator(
                 TRAINING,
                 wordVectors,
@@ -155,8 +155,7 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         log.info("Finished training");
 
         log.info("Saving model");
-        String modelName = "CnnSentenceClassificationModel.pb";
-        File modelFilePath = Paths.get(outputModelFolder, modelName).toFile();
+        File modelFilePath = Paths.get(outputModelFolder, MODEL_NAME).toFile();
         model.save(modelFilePath);
         log.info("Saved model: %s%n", modelFilePath.toPath().toString());
     }
