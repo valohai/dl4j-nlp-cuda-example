@@ -131,8 +131,10 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         }
 
         //Load word vectors and get the DataSetIterators for training and testing
-        log.info("Loading word vectors and creating DataSetIterators (this may take a moment: ~1 to 2 minutes)");
+        log.info("Loading word2vec model and creating DataSetIterators (this may take a moment: ~1 to 2 minutes)");
+        log.info("~~~ Loading the word2vec model");
         WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
+        log.info("~~~ Creating DataSetIterators:");
         DataSetIterator trainIter = getDataSetIterator(
                 TRAINING,
                 wordVectors,

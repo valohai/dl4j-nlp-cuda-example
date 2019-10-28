@@ -93,7 +93,7 @@ public class CnnSentenceClassificationRunner {
     }
 
     DataSetIterator getDataSetIterator(boolean isTraining, WordVectors wordVectors, int minibatchSize,
-                                                      int maxSentenceLength, Random rng ){
+                                                      int maxSentenceLength, Random rng ) {
         String path = FilenameUtils.concat(DATA_PATH, (isTraining ? "aclImdb/train/" : "aclImdb/test/"));
         String positiveBaseDir = FilenameUtils.concat(path, "pos");
         String negativeBaseDir = FilenameUtils.concat(path, "neg");
