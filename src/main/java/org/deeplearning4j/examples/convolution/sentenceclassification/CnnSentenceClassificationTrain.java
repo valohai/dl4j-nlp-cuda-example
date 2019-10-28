@@ -161,7 +161,7 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         log.info("Saving model");
         File modelFilePath = Paths.get(outputModelFolder, MODEL_NAME).toFile();
         model.save(modelFilePath);
-        log.info("Saved model: %s%n", modelFilePath.toPath().toString());
+        log.info(String.format("Saved model: %s%n", modelFilePath.toPath().toString()));
     }
 
     private void performModelTraining(int nEpochs, ComputationGraph model, DataSetIterator trainIter) {
