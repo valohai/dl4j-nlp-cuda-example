@@ -16,8 +16,6 @@
 
 package org.deeplearning4j.examples.convolution.sentenceclassification;
 
-import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
-import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
 import org.deeplearning4j.nn.conf.ConvolutionMode;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
@@ -30,6 +28,7 @@ import org.deeplearning4j.nn.conf.layers.PoolingType;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.CheckpointListener;
+import org.jetbrains.annotations.NotNull;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.learning.config.Adam;
@@ -38,6 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 
 /**
@@ -69,6 +69,28 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
             int randomSeedForRepeatability,                   //For shuffling repeatability
             double learningRate
     ) throws Exception {
+        ComputationGraphConfiguration modelConfiguration = configureModelLayers(
+                batchSize,
+                vectorSize,
+                truncateReviewsToLength,
+                cnnLayerFeatureMaps,
+                globalPoolingType,
+                randomSeedForRepeatability,
+                learningRate
+        );
+
+        ComputationGraph model = initialiseModel(modelConfiguration);
+
+        displayModelInfo(model);
+
+        DataSetIterator trainingSet = getDataSetIterator(TRAINING, batchSize, truncateReviewsToLength, randomSeedForRepeatability);
+
+        performModelTraining(nEpochs, model, trainingSet);
+
+        saveTrainedModel(model);
+    }
+
+    private ComputationGraphConfiguration configureModelLayers(int batchSize, int vectorSize, int truncateReviewsToLength, int cnnLayerFeatureMaps, PoolingType globalPoolingType, int randomSeedForRepeatability, double learningRate) {
         //Set up the network configuration. Note that we have multiple convolution layers, each wih filter
         //widths of 3, 4 and 5 as per Kim (2014) paper.
         log.info(String.format("batchSize = %d", batchSize));
@@ -80,7 +102,7 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         log.info(String.format("learningRate = %d", learningRate));
 
         log.info("Build model....");
-        ComputationGraphConfiguration config = new NeuralNetConfiguration.Builder()
+        return new NeuralNetConfiguration.Builder()
             .weightInit(WeightInit.RELU)
             .activation(Activation.LEAKYRELU)
             .updater(new Adam(0.01))
@@ -119,13 +141,23 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
             //Input has shape [minibatch, channels=1, length=1 to 256, 300]
             .setInputTypes(InputType.convolutional(truncateReviewsToLength, vectorSize, 1))
             .build();
+    }
 
+    @NotNull
+    private ComputationGraph initialiseModel(ComputationGraphConfiguration config) {
         ComputationGraph model = new ComputationGraph(config);
         model.init();
+        return model;
+    }
 
-        displayModelInfo(model);
-        DataSetIterator trainIter = getDataSetIterator(TRAINING, batchSize, truncateReviewsToLength, randomSeedForRepeatability);
+    private void saveTrainedModel(ComputationGraph model) throws IOException {
+        log.info("Saving model");
+        File modelFilePath = Paths.get(outputModelFolder, MODEL_NAME).toFile();
+        model.save(modelFilePath);
+        log.info("Saved model: %s%n", modelFilePath.toPath().toString());
+    }
 
+    private void performModelTraining(int nEpochs, ComputationGraph model, DataSetIterator trainIter) {
         log.info("Starting training");
         model.setListeners(
                 new ValohaiMetadataCreator(10),
@@ -136,10 +168,5 @@ public class CnnSentenceClassificationTrain extends CnnSentenceClassificationRun
         );
         model.fit(trainIter, nEpochs);
         log.info("Finished training");
-
-        log.info("Saving model");
-        File modelFilePath = Paths.get(outputModelFolder, MODEL_NAME).toFile();
-        model.save(modelFilePath);
-        log.info("Saved model: %s%n", modelFilePath.toPath().toString());
     }
 }

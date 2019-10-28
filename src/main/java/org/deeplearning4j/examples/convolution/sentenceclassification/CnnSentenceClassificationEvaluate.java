@@ -19,9 +19,6 @@ package org.deeplearning4j.examples.convolution.sentenceclassification;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.deeplearning4j.iterator.CnnSentenceDataSetIterator;
-import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
-import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
-import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.optimize.api.InvocationType;
 import org.deeplearning4j.optimize.listeners.EvaluativeListener;
@@ -32,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -69,16 +67,13 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
         displayModelInfo(model);
         DataSetIterator testIter = getDataSetIterator(TESTING, batchSize, truncateReviewsToLength, randomSeedForRepeatability);
 
-        log.info(String.format("\n\nEvaluating the model (please be patient this may take a moment): %s", modelFilePath));
-        model.setListeners(
-                new ValohaiMetadataCreator(10),
-                new EvaluativeListener(testIter, 1, InvocationType.EPOCH_END)
-        );
-        Evaluation modelEvaluation = model.evaluate(testIter);
+        performModelEvaluation(model, testIter);
+        validateReviewsUsingTheModel(model, testIter);
 
-        log.info("\n\nPrinting model evaluation stats:");
-        log.info(modelEvaluation.stats());
+        log.info("\n\nFinished evaluating model.");
+    }
 
+    private void validateReviewsUsingTheModel(ComputationGraph model, DataSetIterator testIter) throws IOException {
         //After training: load a multiple sentences (10 sentences) and generate predictions
         log.info("\n\nEvaluating multiple sentences (negative theme) and passing it to the model:");
         for (int sentenceIndex = 0; sentenceIndex < 10; sentenceIndex++) {
@@ -101,6 +96,17 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
                 );
             }
         }
-        log.info("\n\nFinished evaluating model.");
+    }
+
+    private void performModelEvaluation(ComputationGraph model, DataSetIterator testIter) {
+        log.info(String.format("\n\nEvaluating the model (please be patient this may take a moment): %s", modelFilePath));
+        model.setListeners(
+                new ValohaiMetadataCreator(10),
+                new EvaluativeListener(testIter, 1, InvocationType.EPOCH_END)
+        );
+        Evaluation modelEvaluation = model.evaluate(testIter);
+
+        log.info("\n\nPrinting model evaluation stats:");
+        log.info(modelEvaluation.stats());
     }
 }
