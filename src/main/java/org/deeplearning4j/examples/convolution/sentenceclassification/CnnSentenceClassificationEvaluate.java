@@ -45,6 +45,11 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
 
     private static final boolean TESTING = false;
 
+    private static final String[] NEGATIVE_REVIEWS_ACL_IMDB = new String[] {
+            "0_2.txt", "1_3.txt", "2_3.txt", "3_4.txt", "4_4.txt",
+            "100_4.txt", "101_3.txt", "102_4.txt", "103_3.txt", "104_1.txt"
+    };
+
     private String modelFilePath;
 
     public CnnSentenceClassificationEvaluate(String modelFilePath) {
@@ -73,22 +78,24 @@ public class CnnSentenceClassificationEvaluate extends CnnSentenceClassification
         log.info("\n\nFinished evaluating model.");
     }
 
-    private void validateReviewsUsingTheModel(ComputationGraph model, DataSetIterator testIter) throws IOException {
-        //After training: load a multiple sentences (10 sentences) and generate predictions
-        log.info("\n\nEvaluating multiple sentences (negative theme) and passing it to the model:");
-        for (int sentenceIndex = 0; sentenceIndex < 10; sentenceIndex++) {
-            String pathFirstNegativeFile = FilenameUtils.concat(DATA_PATH,
-                    String.format("aclImdb/test/neg/0_%d.txt", sentenceIndex)
+    private void validateReviewsUsingTheModel(ComputationGraph model, DataSetIterator testSet) throws IOException {
+        //After training: load a multiple sentences (n number of sentences) and generate predictions
+        log.info(String.format("\n\nEvaluating %d sentences (negative) by passing each of them to the model: ", NEGATIVE_REVIEWS_ACL_IMDB.length));
+        for (int sentenceIndex = 0; sentenceIndex < NEGATIVE_REVIEWS_ACL_IMDB.length; sentenceIndex++) {
+            String pathNegativeReviewFile = FilenameUtils.concat(DATA_PATH,
+                    String.format("aclImdb/test/neg/%s", NEGATIVE_REVIEWS_ACL_IMDB[sentenceIndex])
             );
-            String contentsNegative = FileUtils.readFileToString(new File(pathFirstNegativeFile));
-            INDArray featuresNegative = ((CnnSentenceDataSetIterator)testIter).loadSingleSentence(contentsNegative);
+            String contentsNegativeReview = FileUtils.readFileToString(new File(pathNegativeReviewFile));
+            INDArray featuresNegativeReview = ((CnnSentenceDataSetIterator)testSet).loadSingleSentence(contentsNegativeReview);
 
-            INDArray predictionsNegative = model.outputSingle(featuresNegative);
-            List<String> labels = testIter.getLabels();
+            INDArray predictionsNegative = model.outputSingle(featuresNegativeReview);
+            List<String> labels = testSet.getLabels();
 
-            log.info(String.format("\n\nPredictions for a negative review (%%d):%d", sentenceIndex));
+            log.info(String.format("\n\nPredictions for a negative review (sentence %d):", sentenceIndex + 1));
+            System.out.println(contentsNegativeReview);
+            System.out.println();
             for( int index=0; index<labels.size(); index++ ){
-                log.info(String.format("Probability that the review being %s = %s (%d confidence)",
+                log.info(String.format("Probability that the above review is %s = %f (%f percent confidence)",
                             labels.get(index),
                             predictionsNegative.getDouble(index),
                             predictionsNegative.getDouble(index) * 100

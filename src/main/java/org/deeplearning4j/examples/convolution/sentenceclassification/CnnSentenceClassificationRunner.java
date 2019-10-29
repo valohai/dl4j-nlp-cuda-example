@@ -114,7 +114,7 @@ public class CnnSentenceClassificationRunner {
                                        int truncateReviewsToLength,
                                        int randomSeedForRepeatability) {
         //Load word vectors and get the dataset iterators for training and testing
-        log.info("Loading word2vec model and creating dataset iterators (this may take a moment: ~1 to 2 minutes)");
+        log.info("Loading word2vec model and creating dataset iterators (this may take some moments)");
         log.info("~~~ Loading the word2vec model");
         WordVectors wordVectors =
                 WordVectorSerializer.loadStaticModel(new File(WORD_VECTORS_PATH));
