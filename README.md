@@ -114,7 +114,7 @@ Original authors of this DL4J example project remain the license holders of the 
 ### Resources
 
 - [dl4j-nlp-cuda-example](https://github.com/valohai/dl4j-nlp-cuda-example) project on GitHub
-- [CUDA enable docker container](https://hub.docker.com/r/neomatrix369/dl4j-nlp-cuda) on [Docker Hub](https://hub.docker.com) (use the latest tag: [v0.5](https://hub.docker.com/layers/neomatrix369/dl4j-nlp-cuda/v0.5/images/sha256-fcfcc2dcdf00839d918a0c475c39733d777181abb1a3c34d8dea68339369b137))
+- [CUDA enabled docker container](https://hub.docker.com/r/neomatrix369/dl4j-nlp-cuda) on [Docker Hub](https://hub.docker.com) (use the latest tag: [v0.5](https://hub.docker.com/layers/neomatrix369/dl4j-nlp-cuda/v0.5/images/sha256-fcfcc2dcdf00839d918a0c475c39733d777181abb1a3c34d8dea68339369b137))
 - [GPU, Nvidia, CUDA and cuDNN](./docs/gpu-related-resources.md)
 - [Awesome AI/ML/DL resources](https://github.com/neomatrix369/awesome-ai-ml-dl/)
 - [Java AI/ML/DL resources](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/README-details.md#java)
@@ -127,7 +127,7 @@ Original authors of this DL4J example project remain the license holders of the 
             - [Word2Vec, Doc2vec & GloVe: Neural Word Embeddings for Natural Language Processing](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-word2vec)
             - [Doc2Vec, or Paragraph Vectors, in Deeplearning4j](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-doc2vec)
             - [Sentence iterator](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-sentence-iterator)
-            - [What is Tokenization?](http://- https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-tokenization)
+            - [What is Tokenization?](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-tokenization)
         - Examples
             - https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples
             - https://github.com/eclipse/deeplearning4j/deeplearning4j/deeplearning4j-nlp-parent
