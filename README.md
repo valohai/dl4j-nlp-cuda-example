@@ -97,7 +97,13 @@ See [Building the docker container to run CUDA-enabled Java apps](./docs/docker-
 #### Run app in docker container
 
 ```bash
-./runDockerContainer.sh
+$ cd dl4j-nlp-cuda-example/docker
+$ ./docker-runner --runContainer   ### neomatrix369 or DOCKER_USER_NAME is set to your Docker Hub username 
+
+or
+
+$ ./docker-runner --dockerUserName [neomatrix369 or your Docker Hub username] \
+                  --runContainer
 ```
 
 At the prompt in the container, do the same as mentioned in section [Run app on your local machine](#run-app-on-the-local-machine).

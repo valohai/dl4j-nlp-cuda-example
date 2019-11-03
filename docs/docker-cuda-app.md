@@ -10,7 +10,12 @@ Builds a CUDA-enabled docker image based on [Nvidia's CUDA docker image: nvidia/
 
 ```bash
 $ cd dl4j-nlp-cuda-example/docker
-$ ./buildDockerImage.sh
+$ ./docker-runner --buildImage   ### DOCKER_USER_NAME is set to your Docker Hub username 
+
+or
+
+$ ./docker-runner --dockerUserName [your Docker Hub username] \
+                  --buildImage
 ```
 
 ## Push the docker image to docker hub
@@ -19,7 +24,12 @@ Push the created image to the Docker hub, you need an account on [Docker Hub](ht
 
 ```bash
 $ cd dl4j-nlp-cuda-example/docker
-$ ./push-docker-image-to-hub.sh
+$ ./docker-runner --pushImageToHub   ### DOCKER_USER_NAME is set to your Docker Hub username 
+
+or
+
+$ ./docker-runner --dockerUserName [your Docker Hub username] \
+                  --pushImageToHub
 ```
 
 You will be prompted for a password to your account when you try to push this to the hub, unless you are already logged in.
@@ -31,7 +41,12 @@ See [Resources](#resources) to find out how to go about with that.
 
 ```bash
 $ cd dl4j-nlp-cuda-example/docker
-$ ./runDockerContainer.sh
+$ ./docker-runner --runContainer   ### neomatrix369 or DOCKER_USER_NAME is set to your Docker Hub username 
+
+or
+
+$ ./docker-runner --dockerUserName [neomatrix369 or your Docker Hub username] \
+                  --runContainer
 ```
 
 Although if you look at the [valohai.yaml]() file, it's already done on the Valohai platform. 
