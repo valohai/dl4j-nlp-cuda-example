@@ -92,7 +92,8 @@ public class CnnSentenceClassificationRunner {
                     12345,
                     0.0001);
         } else if (action.equalsIgnoreCase("evaluate")) {
-            CnnSentenceClassificationEvaluate evaluate = new CnnSentenceClassificationEvaluate(inputModelFilePath);
+            CnnSentenceClassificationEvaluate evaluate =
+                    new CnnSentenceClassificationEvaluate(inputModelFilePath);
             evaluate.run(
                     32,
                     256,    //Truncate reviews with length (# words) greater than this
