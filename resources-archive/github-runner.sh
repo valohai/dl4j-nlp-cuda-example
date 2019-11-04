@@ -50,7 +50,7 @@ abortIfGitHubTokenIsAbsent() {
 
 askTargetRepoIfAbsent() {
 	if [[ -z ${TARGET_REPO:-""} ]]; then
-	  read -p "Target repo name (must exist on GitHub, for e.g. neomatrix369/awesome-ai-ml-dl): " TARGET_REPO
+	  read -p "Target repo name (must exist on GitHub, for e.g. neomatrix369/dl4j-nlp-cuda-example): " TARGET_REPO
 	fi
 }
 
@@ -65,7 +65,7 @@ setup() {
 
 deleteResourceFromGitHub() {
 	echo ""
-	echo "~~~~ Fetching Release ID for ${TAG_NAME}"
+	echo "~~~~ Fetching Release ID for ${TAG_NAME} (TARGET_REPO=${TARGET_REPO})"
 
 	setup
 
@@ -108,11 +108,11 @@ uploadArtifact() {
 uploadResourceToGitHub() {
 	echo "Current TAG_NAME=${TAG_NAME}"
 	echo ""
-	echo "~~~~ Uploading dataset artifact"
+	echo "~~~~ Uploading dataset artifact (TARGET_REPO=${TARGET_REPO})"
 
 	setup
 
-  	deleteResourceFromGitHub
+  	deleteResourceFromGitHub || (echo "Warning: ${TARGET_REPO} does not contain the artifact by TAG_NAME ${TAG_NAME}" && true)
 
 	POST_DATA=$(printf '{
 	"tag_name": "%s",
@@ -169,7 +169,7 @@ showUsageText() {
                                  --deleteResourceFromGitHub
                                  --help
 
-       --targetRepo                  GitHub repo name (mandatory with upload and delete commands, for e.g. neomatrix369/awesome-ai-ml-dl)
+       --targetRepo                  GitHub repo name (mandatory with upload and delete commands, for e.g. neomatrix369/dl4j-nlp-cuda-example)
        --createResource              (command action) create the resource artifact
        --uploadResourceToGitHub      (command action) upload the created resource artifact to GitHub Releases
        --deleteResourceFromGitHub    (command action) delete the resource artifact from GitHub Releases
@@ -185,7 +185,7 @@ CURL_OUTPUT="${CURRENT_DIR}/artifacts/github-release.listing"
 TARGET_ARTIFACT="${CURRENT_DIR}/dl4j-nlp-src-main-resources.tgz"
 RELEASE_VERSION="0.1"
 TAG_NAME="dl4j-nlp-src-main-resources-v${RELEASE_VERSION}"
-TARGET_REPO="${TARGET_REPO:-"neomatrix369/awesome-ai-ml-dl""
+TARGET_REPO="${TARGET_REPO:-"neomatrix369/dl4j-nlp-cuda-example"}"
 
 if [[ "$#" -eq 0 ]]; then
 	echo "No parameter has been passed. Please see usage below:"
