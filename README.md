@@ -68,7 +68,7 @@ See [Build the app using the Valohai platform](./docs/valohai-build-app.md)
 $ vh exec run know-your-gpus
 ```
 
-Will run a bunch of commands to gather Nvidia GPU, Nvidia drivers, CUDA details on a machine, this step is also used by other steps. The captured result is stored in a log file and archive after each run. See [GPU related resources]](./docs/gpu-related-resources.md)
+Will run a bunch of commands to gather Nvidia GPU, Nvidia drivers, CUDA details on a machine, this step is also used by other steps. The captured result is stored in a log file and archive after each run. See [GPU related resources](./docs/gpu-related-resources.md)
 
 #### Build the app on the local machine
 
@@ -80,7 +80,7 @@ $ BACKEND=cpu ./buildUberJar.sh
 
 ##### GPU version
 
-**Note:** please ensure you have access to an Nvidia GPU and the necessary drivers i.e. CUDA, cuDNN etc... are installed, see [GPU related resources]](./docs/gpu-related-resources.md).
+**Note:** please ensure you have access to an Nvidia GPU and the necessary drivers i.e. CUDA, cuDNN etc... are installed, see [GPU related resources](./docs/gpu-related-resources.md).
 
 ```bash
 $ BACKEND=gpu ./buildUberJar.sh
@@ -139,7 +139,7 @@ Original authors of this DL4J example project remain the license holders of the 
             - [What is Tokenization?](https://deeplearning4j.org/docs/latest/deeplearning4j-nlp-tokenization)
         - Examples
             - https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples
-            - https://github.com/eclipse/deeplearning4j/deeplearning4j/deeplearning4j-nlp-parent
+            - https://github.com/eclipse/deeplearning4j/tree/master/deeplearning4j/deeplearning4j-nlp-parent
 - **Valohai resources**
     - [valohai](https://www.valohai.com/) | [docs](https://docs.valohai.com/) | [blogs](https://blogs.valohai.com/) | [GitHub](https://github.com/valohai) | [Videos](https://www.youtube.com/channel/UCiR8Fpv6jRNphaZ99PnIuFg/videos) | [Showcase](https://valohai.com/showcase/) | [About valohai](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/data/about-Valohai.md#valohai) | [Slack](http://community-slack.valohai.com/) | [@valohaiai](https://twitter.com/@valohaiai)
     - [Search for any topic in the Documentation](https://docs.valohai.com/search.html?q=%3Cany+topic%3E)
