@@ -22,11 +22,11 @@ set -o pipefail
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-if [[ -z ${DOCKER_USER_NAME:-""} ]]; then
-  read -p "Docker username (must exist on Docker Hub): " DOCKER_USER_NAME
+if [[ -z ${GITHUB_USER_NAME:-""} ]]; then
+  read -p "GitHub username (must exist on GitHub): " GITHUB_USER_NAME
 fi
 
-TARGET_REPO="${DOCKER_USER_NAME}/awesome-ai-ml-dl"
+TARGET_REPO="${GITHUB_USER_NAME}/awesome-ai-ml-dl"
 RELEASE_VERSION="0.1"
 TAG_NAME="dl4j-nlp-src-main-resources-v${RELEASE_VERSION}"
 
