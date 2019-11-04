@@ -5,7 +5,7 @@
     image: neomatrix369/dl4j-nlp-cuda:v0.5
     inputs:
       - name: src-main-resources
-        default: https://github.com/neomatrix369/awesome-ai-ml-dl/releases/download/dl4j-nlp-src-main-resources-v0.1/dl4j-nlp-src-main-resources.tgz
+        default: https://github.com/neomatrix369/dl4j-nlp-cuda-example/releases/download/dl4j-nlp-src-main-resources-v0.1/dl4j-nlp-src-main-resources.tgz
         description: NLP data for training, prediction, evaluation
     command:
       - ./buildUberJar.sh
