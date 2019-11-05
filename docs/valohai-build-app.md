@@ -1,6 +1,6 @@
 # Build the app using the Valohai platform
 
-We mean using the [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) to run executions on the [Valohai](https://valohai.org) platform.
+We mean using the [Valohai CLI](https://docs.valohai.com/tutorials/quick-start-cli.html?highlight=cli) to run executions on the [Valohai](https://valohai.com) platform.
 
 ## CPU & GPU version
 
