@@ -106,6 +106,8 @@ $ ./docker-runner --dockerUserName [neomatrix369 or your Docker Hub username] \
 
 At the prompt in the container, do the same as mentioned in section [Run app on your local machine](#run-app-on-the-local-machine).
 
+You would use your Docker Hub username only when you have an Docker image with your username available locally or on Docker Hub.
+
 ### Running other examples on the local machine
 
 See [Running other examples on the local machine](./docs/running-other-examples.md)

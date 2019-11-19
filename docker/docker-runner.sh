@@ -113,7 +113,7 @@ setFullDockerTagName() {
 IMAGE_NAME=${IMAGE_NAME:-dl4j-nlp-cuda}
 IMAGE_VERSION=${IMAGE_VERSION:-$(cat ../version.txt)}
 FULL_DOCKER_TAG_NAME=""
-DOCKER_USER_NAME="${DOCKER_USER_NAME:-}"
+DOCKER_USER_NAME="${DOCKER_USER_NAME:-neomatrix369}"
 
 if [[ "$#" -eq 0 ]]; then
 	echo "No parameter has been passed. Please see usage below:"
