@@ -1,7 +1,7 @@
 # DL4J NLP examples [![NLP using DL4J](https://img.shields.io/docker/pulls/neomatrix369/dl4j-nlp-cuda.svg)](https://hub.docker.com/r/neomatrix369/dl4j-nlp-cuda) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
-This area in the repo is a result of the blog post [Applying NLP in Java, all from the command-line](https://medium.com/@neomatrix369/applying-nlp-in-java-all-from-the-command-line-1225dd591e80) | [Original post](https://blog.valohai.com/nlp_with_dl4j_in_java_all_from_the_command-line?from=3oxenia9mtr6). Please refer to the post before considering using this repo to understand better on how to use the different aspects of it.
+This area in the repo is a result of the blog post [Applying NLP in Java, all from the command-line](https://medium.com/@neomatrix369/applying-nlp-in-java-all-from-the-command-line-1225dd591e80) | [Original post](https://valohai.com/blog/nlp_with_dl4j_in_java_all_from_the_command-line?from=3oxenia9mtr6). Please refer to the post before considering using this repo to understand better on how to use the different aspects of it.
 
 ---
 
@@ -141,15 +141,15 @@ Original authors of this DL4J example project remain the license holders of the 
             - https://github.com/eclipse/deeplearning4j-examples/tree/master/dl4j-examples
             - https://github.com/eclipse/deeplearning4j/tree/master/deeplearning4j/deeplearning4j-nlp-parent
 - **Valohai resources**
-    - [valohai](https://www.valohai.com/) | [docs](https://docs.valohai.com/) | [blogs](https://blogs.valohai.com/) | [GitHub](https://github.com/valohai) | [Videos](https://www.youtube.com/channel/UCiR8Fpv6jRNphaZ99PnIuFg/videos) | [Showcase](https://valohai.com/showcase/) | [About valohai](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/data/about-Valohai.md#valohai) | [Slack](http://community-slack.valohai.com/) | [@valohaiai](https://twitter.com/@valohaiai)
+    - [valohai](https://www.valohai.com/) | [docs](https://docs.valohai.com/) | [blogs](https://valohai.com/blog/) | [GitHub](https://github.com/valohai) | [Videos](https://www.youtube.com/channel/UCiR8Fpv6jRNphaZ99PnIuFg/videos) | [Showcase](https://valohai.com/showcase/) | [About valohai](https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/data/about-Valohai.md#valohai) | [Slack](http://community-slack.valohai.com/) | [@valohaiai](https://twitter.com/@valohaiai)
     - [Search for any topic in the Documentation](https://docs.valohai.com/search.html?q=%3Cany+topic%3E)
-    - Blog posts on how to use the Valohai CLI tool: [[1]](https://blog.valohai.com/from-zero-to-hero-with-valohai-cli) | [[2]](https://blog.valohai.com/from-zero-to-hero-with-valohai-part-2)
+    - Blog posts on how to use the Valohai CLI tool: [[1]](https://valohai.com/blog/from-zero-to-hero-with-valohai-cli) | [[2]](https://valohai.com/blog/from-zero-to-hero-with-valohai-part-2)
     - [Custom Docker Images](https://docs.valohai.com/guides/build-docker-image.html)
 - Other resources
   - [Awesome Graal](https://github.com/neomatrix369/awesome-graal) | [graalvm.org](https://www.graalvm.org/)
 - Other related posts
-    - [How to do Deep Learning for Java on the Valohai Platform?](https://blog.valohai.com/how-to-do-deep-learning-for-java-on-the-valohai-platform)
-    - Blog posts on how to use the Valohai CLI tool: [[1]](https://blog.valohai.com/from-zero-to-hero-with-valohai-cli) | [[2]](https://blog.valohai.com/from-zero-to-hero-with-valohai-part-2)
+    - [How to do Deep Learning for Java on the Valohai Platform?](https://valohai.com/blog/how-to-do-deep-learning-for-java-on-the-valohai-platform)
+    - Blog posts on how to use the Valohai CLI tool: [[1]](https://valohai.com/blog/from-zero-to-hero-with-valohai-cli) | [[2]](https://valohai.com/blog/from-zero-to-hero-with-valohai-part-2)
 
 ---
 
